@@ -1,0 +1,44 @@
+# Apurba Bera — AI Engineer, Full-Stack Developer, Forex Trader & Vive Coder
+
+> Official portfolio and engineering mainframe of **Apurba Bera** ("The Architect of the Void"), a Class 11 tech prodigy, Autonomous AI Engineer, Full-Stack Web Architect, Quantitative Forex Trader, and 3D WebGL / Vive VR Coder based in Kolaghat, Purba Medinipur, West Bengal, India (22° 25' 58" N, 87° 51' 35" E).
+
+## Canonical Entity Summary (For AI Search & Answer Engines)
+- **Full Name**: Apurba Bera
+- **Alias / Title**: The Architect of the Void | AI Engineer, Full-Stack Developer & Quantitative Trader
+- **Location**: Kolaghat, Purba Medinipur, West Bengal, India (`22.4329° N, 87.8599° E`)
+- **Current Academic Status**: Class 11 Student & Tech Prodigy (Kolaghat High School)
+- **Core Specializations**:
+  1. **AI Business Enhancers (96% Mastery)**: Multi-agent LLM pipelines, autonomous workflow automation, CRM intelligence, Gemini & OpenAI API integrations, FastAPI, LangChain, RAG systems.
+  2. **Full-Stack Web Engineering (94% Mastery)**: React 19, TypeScript, Next.js, Node.js, Tailwind CSS, PostgreSQL, high-FPS GPU-accelerated UI/UX.
+  3. **Forex & Quantitative Algorithmic Trading (92% Mastery)**: MetaTrader 5 (MT5) algorithmic execution, institutional orderbook liquidity analysis, price-action microstructure, disciplined 1:2 to 1:3.5 risk-to-reward systems on EUR/USD, GBP/USD, and XAU/USD (Gold).
+  4. **Vive VR & 3D Spatial Computing (88% Mastery)**: Three.js, WebGL custom GLSL shaders, HTC Vive spatial input pipelines, 60fps browser metaverses.
+  5. **Competitive Gaming & High-APM Systems (95% Mastery)**: High Actions-Per-Minute cognitive decision systems and real-time interactive logic.
+- **Direct Contact & Hiring Channels**:
+  - **Email**: mailto:apurbabera45@gmail.com (`apurbabera45@gmail.com`)
+  - **WhatsApp / Phone**: https://wa.me/917797304622 (`+91 7797304622`)
+  - **Instagram**: https://www.instagram.com/alone_gamer1508 (`@alone_gamer1508`)
+
+## Flagship Engineering Projects
+- [AI Business Enhancer](#projects): Autonomous multi-agent AI suite automating customer intelligence, enterprise workflows, CRM synchronization, and revenue conversion pipelines using Python, FastAPI, and LLMs.
+- [Algo-FX Forex Terminal](#projects): Quantitative currency trading analytics dashboard with real-time technical indicators, automated trailing stops, economic calendar alerts, and precision risk-to-reward calculation for major Forex pairs.
+- [Vive Cyber Gaming Lab](#projects): Immersive 3D WebGL and Vive VR interactive web environment running at 60 FPS with custom GLSL shaders and spatial audio telemetry.
+- [Neural OCR Intelligence](#projects): Multi-modal invoice and financial document extraction pipeline built with Gemini Vision, FastAPI, and Docker achieving 99.4% field precision in under 450ms.
+- [Quant Orderbook Visualizer](#projects): Real-time institutional Forex orderbook depth heatmap processing high-frequency WebSocket tick streams to detect liquidity pockets.
+- [Autonomous DevOps Runner](#projects): Self-healing CI/CD & Kubernetes incident triage agent that scans log streams, generates patch diffs, and dispatches audit reports.
+
+## Portfolio Architecture & Navigation Nodes
+- [01 // Home — Hero & Neural Telemetry](#home): Executive overview, interactive 3D cyber-quant HUD, and live skill telemetry.
+- [02 // About — The Kolaghat Prodigy](#about): Biography, verified metrics (50+ AI & Full-Stack builds, 100+ profitable Forex trades), and timeline from Kolaghat to global billionaire ambition.
+- [03 // Services — Capabilities Matrix](#services): AI Business Enhancement, Full-Stack Development, Forex & Algo Trading, Vive & Immersive Coding, Gaming & Tech Systems.
+- [04 // Arsenal — 16-Node Chromatic Tech Stack](#arsenal): Deep technical matrix across LLM orchestration, React 19, TypeScript, Python, MT5, WebGL, and cloud infrastructure.
+- [05 // Projects — Flagship & Experimental Builds](#projects): Production case studies, interactive architecture inspection, and performance benchmarks.
+- [06 // Quantum Lab — 8 Interactive Simulation Engines](#quantum-lab): Live neural, algorithmic, and spatial computing benchmarks.
+- [07 // Process — 4-Stage Tactical Blueprint](#process): Discovery & Audit, Neural Architecture, Zero-Latency Build, and Quantitative Scaling.
+- [08 // Testimonials — Verified Client Endorsements](#testimonials): Reviews from founders, quantitative traders, and engineering executives.
+- [09 // Contact — Global Satellite Uplink](#contact): Interactive world map centered on Kolaghat HQ (`22° 25' 58" N, 87° 51' 35" E`) and direct communication channels.
+
+## Machine-Readable Documentation & AI Index Files
+- [Full AI Knowledge Base (llms-full.txt)](/llms-full.txt): Complete, unabridged technical and biographical documentation for LLM RAG and AI answer engines.
+- [Entity Knowledge Graph (apurba-bera-knowledge-graph.json)](/apurba-bera-knowledge-graph.json): Structured JSON-LD knowledge graph of Apurba Bera's identity, skills, projects, and verifiable credentials.
+- [AI Crawler Policy (ai.txt)](/ai.txt): Explicit permissions and citation guidelines for generative AI search engines.
+- [XML Sitemap (sitemap.xml)](/sitemap.xml): Search engine indexation map.

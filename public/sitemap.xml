@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Primary Canonical Entry Point -->
+  <url>
+    <loc>https://ais-pre-ve5rembvuyowk6rev7t6ps-687178731361.asia-east1.run.app/</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Section 01: Home & Neural Telemetry HUD -->
+  <url>
+    <loc>https://ais-pre-ve5rembvuyowk6rev7t6ps-687178731361.asia-east1.run.app/#home</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Section 02: About Apurba Bera — Kolaghat Tech Prodigy -->
+  <url>
+    <loc>https://ais-pre-ve5rembvuyowk6rev7t6ps-687178731361.asia-east1.run.app/#about</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Section 03: AI, Full-Stack, Forex & WebGL Services -->
+  <url>
+    <loc>https://ais-pre-ve5rembvuyowk6rev7t6ps-687178731361.asia-east1.run.app/#services</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Section 04: 16-Node Chromatic Technical Arsenal -->
+  <url>
+    <loc>https://ais-pre-ve5rembvuyowk6rev7t6ps-687178731361.asia-east1.run.app/#arsenal</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Section 05: Flagship & Experimental Engineering Projects -->
+  <url>
+    <loc>https://ais-pre-ve5rembvuyowk6rev7t6ps-687178731361.asia-east1.run.app/#projects</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Individual Project Pages (Open Graph & Twitter Card Indexed Case Studies) -->
+  <url>
+    <loc>https://ais-pre-ve5rembvuyowk6rev7t6ps-687178731361.asia-east1.run.app/?project=ai-business-enhancer</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://ais-pre-ve5rembvuyowk6rev7t6ps-687178731361.asia-east1.run.app/?project=algo-fx-terminal</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://ais-pre-ve5rembvuyowk6rev7t6ps-687178731361.asia-east1.run.app/?project=vive-gaming-universe</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://ais-pre-ve5rembvuyowk6rev7t6ps-687178731361.asia-east1.run.app/?project=neural-invoice-ocr</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://ais-pre-ve5rembvuyowk6rev7t6ps-687178731361.asia-east1.run.app/?project=quant-depth-heatmap</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://ais-pre-ve5rembvuyowk6rev7t6ps-687178731361.asia-east1.run.app/?project=autonomous-devops-agent</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Section 06: Cyber Quantum Lab Interactive Simulations -->
+  <url>
+    <loc>https://ais-pre-ve5rembvuyowk6rev7t6ps-687178731361.asia-east1.run.app/#quantum-lab</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Section 07: 4-Stage Architectural Process -->
+  <url>
+    <loc>https://ais-pre-ve5rembvuyowk6rev7t6ps-687178731361.asia-east1.run.app/#process</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Section 08: Client Endorsements & Testimonials -->
+  <url>
+    <loc>https://ais-pre-ve5rembvuyowk6rev7t6ps-687178731361.asia-east1.run.app/#testimonials</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Section 09: Global Satellite Contact Uplink -->
+  <url>
+    <loc>https://ais-pre-ve5rembvuyowk6rev7t6ps-687178731361.asia-east1.run.app/#contact</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- AI Search & LLM Knowledge Base Documents -->
+  <url>
+    <loc>https://ais-pre-ve5rembvuyowk6rev7t6ps-687178731361.asia-east1.run.app/llms.txt</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://ais-pre-ve5rembvuyowk6rev7t6ps-687178731361.asia-east1.run.app/llms-full.txt</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://ais-pre-ve5rembvuyowk6rev7t6ps-687178731361.asia-east1.run.app/apurba-bera-knowledge-graph.json</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+</urlset>

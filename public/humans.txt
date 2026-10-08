@@ -1,0 +1,12 @@
+/* TEAM & ARCHITECT */
+Architect & Engineer: Apurba Bera ("The Architect of the Void")
+Role: AI Engineer, Full-Stack Developer, Quantitative Forex Trader, Vive VR Coder
+Location: Kolaghat, Purba Medinipur, West Bengal, India (22° 25' 58" N, 87° 51' 35" E)
+Email: apurbabera45@gmail.com
+WhatsApp: +91 7797304622
+Instagram: @alone_gamer1508
+
+/* SITE & TECHNOLOGY */
+Standards: HTML5, CSS3, TypeScript, React 19, Vite, Tailwind CSS, WebGL, Schema.org JSON-LD, LLMs.txt
+AI Search Optimization: OpenAI SearchGPT, Perplexity AI, Google Gemini AI Overviews, Anthropic Claude
+Last Updated: 2026-10-08

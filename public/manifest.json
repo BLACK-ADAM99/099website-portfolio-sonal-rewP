@@ -1,0 +1,72 @@
+{
+  "id": "/",
+  "name": "Apurba Bera - AI Engineer, Developer & Trader Portfolio",
+  "short_name": "Apurba Bera",
+  "description": "Official portfolio of Apurba Bera - Class 11 tech prodigy, AI Engineer, Full-Stack Developer, Forex Trader, and AI Business Enhancer from Kolaghat, West Bengal.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "background_color": "#05030e",
+  "theme_color": "#d946ef",
+  "orientation": "portrait-primary",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["technology", "artificial-intelligence", "finance", "portfolio", "developer"],
+  "icons": [
+    {
+      "src": "/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "AI & Algo Services",
+      "short_name": "Services",
+      "description": "Explore Apurba Bera's AI Business Enhancement, Full-Stack & Forex Algo Services",
+      "url": "/#services",
+      "icons": [{ "src": "/pwa-192x192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Flagship Projects",
+      "short_name": "Projects",
+      "description": "Inspect AI Business Enhancer, Algo-FX Terminal & Vive Gaming Lab",
+      "url": "/#projects",
+      "icons": [{ "src": "/pwa-192x192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Cyber Quantum Lab",
+      "short_name": "Quantum Lab",
+      "description": "Run live neural & quantitative trading simulations",
+      "url": "/#quantum-lab",
+      "icons": [{ "src": "/pwa-192x192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Contact Uplink",
+      "short_name": "Contact",
+      "description": "Direct uplink to Apurba Bera in Kolaghat, West Bengal",
+      "url": "/#contact",
+      "icons": [{ "src": "/pwa-192x192.png", "sizes": "192x192", "type": "image/png" }]
+    }
+  ]
+}

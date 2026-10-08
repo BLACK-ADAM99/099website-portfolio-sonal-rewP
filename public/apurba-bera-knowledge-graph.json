@@ -1,0 +1,204 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "#apurba-bera",
+      "name": "Apurba Bera",
+      "alternateName": ["The Architect of the Void", "Apurba", "alone_gamer1508"],
+      "jobTitle": "AI Engineer, Full-Stack Developer & Quantitative Forex Trader",
+      "description": "Class 11 tech prodigy, Autonomous AI Engineer, Full-Stack Developer, Quantitative Forex Trader, and 3D WebGL / Vive VR Coder from Kolaghat, Purba Medinipur, West Bengal, India.",
+      "email": "mailto:apurbabera45@gmail.com",
+      "telephone": "+91-7797304622",
+      "nationality": {
+        "@type": "Country",
+        "name": "India"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Kolaghat, Purba Medinipur",
+        "addressRegion": "West Bengal",
+        "postalCode": "721134",
+        "addressCountry": "IN"
+      },
+      "homeLocation": {
+        "@type": "Place",
+        "name": "Kolaghat, Purba Medinipur, West Bengal, India",
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 22.4329,
+          "longitude": 87.8599
+        }
+      },
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "Kolaghat High School",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Kolaghat",
+          "addressRegion": "West Bengal",
+          "addressCountry": "IN"
+        }
+      },
+      "sameAs": [
+        "https://www.instagram.com/alone_gamer1508",
+        "https://wa.me/917797304622"
+      ],
+      "knowsLanguage": ["en", "bn", "hi"],
+      "knowsAbout": [
+        "Artificial Intelligence Engineering",
+        "Autonomous AI Agents & Multi-Agent Orchestration",
+        "Large Language Models (Gemini API, OpenAI API, LangChain)",
+        "AI Business Enhancers & CRM Workflow Automation",
+        "Full-Stack Web Development (React 19, TypeScript, Next.js, Node.js, Python, FastAPI)",
+        "Quantitative Forex Trading & Market Microstructure (EUR/USD, GBP/USD, XAU/USD)",
+        "MetaTrader 5 (MT5) Algorithmic Trading Systems",
+        "3D Spatial Computing, WebGL, Three.js & HTC Vive VR",
+        "Competitive High-APM Gaming Systems"
+      ]
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "#apurba-engineering-services",
+      "name": "Apurba Bera — Autonomous AI, Full-Stack & Quantitative Engineering",
+      "founder": { "@id": "#apurba-bera" },
+      "areaServed": "Worldwide",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Kolaghat",
+        "addressRegion": "West Bengal",
+        "postalCode": "721134",
+        "addressCountry": "IN"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 22.4329,
+        "longitude": 87.8599
+      },
+      "telephone": "+91-7797304622",
+      "email": "apurbabera45@gmail.com",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "bestRating": "5",
+        "ratingCount": "28"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Engineering & Quantitative Services",
+        "itemListElement": [
+          {
+            "@type": "Service",
+            "@id": "#service-ai-business-enhancement",
+            "name": "AI Business Enhancement & Autonomous LLM Agents",
+            "serviceType": "Artificial Intelligence & Enterprise Workflow Automation",
+            "category": "AGENTS / LLM",
+            "description": "Deploying autonomous AI agents, LLM integrations, and workflow automation to supercharge enterprise growth.",
+            "provider": { "@id": "#apurba-bera" },
+            "areaServed": "Worldwide"
+          },
+          {
+            "@type": "Service",
+            "@id": "#service-fullstack-development",
+            "name": "Full-Stack Web Engineering (React 19, TypeScript & Python)",
+            "serviceType": "Full-Stack Web & API Architecture",
+            "category": "PYTHON / REACT",
+            "description": "Custom 60fps responsive web applications and scalable backend APIs built with React 19, TypeScript, Node.js, and Python FastAPI.",
+            "provider": { "@id": "#apurba-bera" },
+            "areaServed": "Worldwide"
+          },
+          {
+            "@type": "Service",
+            "@id": "#service-forex-algo-trading",
+            "name": "Forex & Quantitative Algorithmic Trading Systems",
+            "serviceType": "Quantitative Financial Analytics & MT5 Execution",
+            "category": "QUANT / METRICS",
+            "description": "Algorithmic market analysis, MetaTrader 5 (MT5) quantitative indicators, and disciplined risk-reward execution engines.",
+            "provider": { "@id": "#apurba-bera" },
+            "areaServed": "Worldwide"
+          },
+          {
+            "@type": "Service",
+            "@id": "#service-vive-immersive-coding",
+            "name": "Vive VR & 3D WebGL Spatial Coding",
+            "serviceType": "3D WebGL, Three.js & VR Web Engineering",
+            "category": "VIVE / THREE.JS",
+            "description": "Interactive 3D browser environments, HTC Vive VR/AR web experiences, and custom GLSL shaders.",
+            "provider": { "@id": "#apurba-bera" },
+            "areaServed": "Worldwide"
+          },
+          {
+            "@type": "Service",
+            "@id": "#service-gaming-tech-systems",
+            "name": "Gaming & High-APM Tech Systems",
+            "serviceType": "Interactive Game Logic & Low-Latency Systems",
+            "category": "HIGH APM / LOGIC",
+            "description": "High-performance gaming logic, competitive mechanics, and futuristic cybernetic digital products.",
+            "provider": { "@id": "#apurba-bera" },
+            "areaServed": "Worldwide"
+          }
+        ]
+      }
+    },
+    {
+      "@type": ["SoftwareApplication", "CreativeWork"],
+      "@id": "#project-ai-business-enhancer",
+      "name": "AI Business Enhancer",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web, Cloud, Linux, macOS, Windows",
+      "author": { "@id": "#apurba-bera" },
+      "description": "Autonomous AI suite automating customer intelligence, workflows, CRM synchronization, and revenue pipelines.",
+      "keywords": "AI AGENTS, LLM, PYTHON, FASTAPI"
+    },
+    {
+      "@type": ["SoftwareApplication", "CreativeWork"],
+      "@id": "#project-algo-fx-terminal",
+      "name": "Algo-FX Forex Terminal",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web, MetaTrader 5, Windows, macOS",
+      "author": { "@id": "#apurba-bera" },
+      "description": "Algorithmic currency trading analytics dashboard with live technical indicators, trailing stops, and precision risk models.",
+      "keywords": "FOREX, ALGO TRADING, REACT, METATRADER"
+    },
+    {
+      "@type": ["SoftwareApplication", "CreativeWork"],
+      "@id": "#project-vive-gaming-universe",
+      "name": "Vive Cyber Gaming Lab",
+      "applicationCategory": "GameApplication",
+      "operatingSystem": "WebGL, WebXR, HTC Vive",
+      "author": { "@id": "#apurba-bera" },
+      "description": "Immersive 3D interactive web game environment with Vive VR integration, custom GLSL shaders, and 60fps mechanics.",
+      "keywords": "VIVE VR, THREE.JS, WEBGL, GAMING"
+    },
+    {
+      "@type": ["SoftwareApplication", "CreativeWork"],
+      "@id": "#project-neural-invoice-ocr",
+      "name": "Neural OCR Intelligence",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Cloud, Docker, Linux, Web",
+      "author": { "@id": "#apurba-bera" },
+      "description": "Multi-modal invoice and financial document extraction pipeline with 99.4% field precision in under 450ms.",
+      "keywords": "GEMINI VISION, FASTAPI, OCR, DOCKER"
+    },
+    {
+      "@type": ["SoftwareApplication", "CreativeWork"],
+      "@id": "#project-quant-depth-heatmap",
+      "name": "Quant Orderbook Visualizer",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web, Cloud",
+      "author": { "@id": "#apurba-bera" },
+      "description": "Real-time institutional Forex orderbook depth heatmaps with liquidity pocket detection via WebSockets.",
+      "keywords": "WEBSOCKETS, CANVAS 2D, FOREX, HIGH-FREQ"
+    },
+    {
+      "@type": ["SoftwareApplication", "CreativeWork"],
+      "@id": "#project-autonomous-devops-agent",
+      "name": "Autonomous DevOps Runner",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Linux, Kubernetes, Docker, Cloud",
+      "author": { "@id": "#apurba-bera" },
+      "description": "Self-monitoring agent resolving server incidents and auto-triaging deployment failures with audit traces.",
+      "keywords": "AI AGENT, KUBERNETES, CI/CD, AUTOMATION"
+    }
+  ]
+}

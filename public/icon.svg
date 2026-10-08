@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#05030e" />
+      <stop offset="50%" stop-color="#11072b" />
+      <stop offset="100%" stop-color="#071226" />
+    </linearGradient>
+    <linearGradient id="neonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="50%" stop-color="#d946ef" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" />
+  <rect x="28" y="28" width="456" height="456" rx="92" fill="none" stroke="url(#neonGrad)" stroke-width="8" stroke-opacity="0.7" />
+  <circle cx="256" cy="256" r="168" fill="none" stroke="#06b6d4" stroke-width="3" stroke-dasharray="14 10" stroke-opacity="0.45" />
+  <!-- Cyber Brackets < A /> -->
+  <path d="M150 196 L92 256 L150 316" fill="none" stroke="#06b6d4" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M362 196 L420 256 L362 316" fill="none" stroke="#d946ef" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M256 148 L194 348 M256 148 L318 348 M214 286 L298 286" fill="none" stroke="url(#neonGrad)" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" />
+</svg>
