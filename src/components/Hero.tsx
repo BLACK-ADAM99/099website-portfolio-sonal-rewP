@@ -34,7 +34,7 @@ interface HeroProps {
   onDownloadCv: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onViewWork, onDownloadCv }) => {
+export const Hero: React.FC<HeroProps> = React.memo(({ onViewWork, onDownloadCv }) => {
   const waveBaseHeights = [42, 74, 38, 88, 56, 78, 48, 94, 64, 40, 80, 54];
 
   const roles = [
@@ -57,13 +57,67 @@ export const Hero: React.FC<HeroProps> = ({ onViewWork, onDownloadCv }) => {
     };
   }, [roles.length]);
 
+  const sectionRef = useRef<HTMLElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
+  // Section-wide normalized mouse coordinates (-0.5 to +0.5) for multi-layer 3D Hero parallax
+  const sectionMouseX = useMotionValue(0);
+  const sectionMouseY = useMotionValue(0);
+
   const springConfig = { damping: 24, stiffness: 180, mass: 0.65 };
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [11, -11]), springConfig);
   const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-11, 11]), springConfig);
+
+  const parallaxSpringConfig = { damping: 28, stiffness: 135, mass: 0.55 };
+  const smoothSecX = useSpring(sectionMouseX, parallaxSpringConfig);
+  const smoothSecY = useSpring(sectionMouseY, parallaxSpringConfig);
+
+  // 1. Hero Background Parallax Layers (Deep, Mid & Foreground 3D Planes)
+  const bgDeepX = useTransform(smoothSecX, [-0.5, 0.5], [-28, 28]);
+  const bgDeepY = useTransform(smoothSecY, [-0.5, 0.5], [-20, 20]);
+  const bgMidX = useTransform(smoothSecX, [-0.5, 0.5], [22, -22]);
+  const bgMidY = useTransform(smoothSecY, [-0.5, 0.5], [16, -16]);
+  const bgForeX = useTransform(smoothSecX, [-0.5, 0.5], [40, -40]);
+  const bgForeY = useTransform(smoothSecY, [-0.5, 0.5], [28, -28]);
+
+  // 2. Hero Content Parallax Layers (Staggered Z-Depth Planes)
+  const barParallaxX = useTransform(smoothSecX, [-0.5, 0.5], [-14, 14]);
+  const barParallaxY = useTransform(smoothSecY, [-0.5, 0.5], [-10, 10]);
+  const leftContentX = useTransform(smoothSecX, [-0.5, 0.5], [-18, 18]);
+  const leftContentY = useTransform(smoothSecY, [-0.5, 0.5], [-12, 12]);
+  const leftRotateX = useTransform(smoothSecY, [-0.5, 0.5], [3, -3]);
+  const leftRotateY = useTransform(smoothSecX, [-0.5, 0.5], [-3.5, 3.5]);
+  const headlineParallaxX = useTransform(smoothSecX, [-0.5, 0.5], [-10, 10]);
+  const headlineParallaxY = useTransform(smoothSecY, [-0.5, 0.5], [-7, 7]);
+
+  // 3. Right Portrait & Orbiting HUD Satellite Cards Parallax
+  const portraitParallaxX = useTransform(smoothSecX, [-0.5, 0.5], [20, -20]);
+  const portraitParallaxY = useTransform(smoothSecY, [-0.5, 0.5], [14, -14]);
+  const sat1ParallaxX = useTransform(smoothSecX, [-0.5, 0.5], [36, -36]);
+  const sat1ParallaxY = useTransform(smoothSecY, [-0.5, 0.5], [24, -24]);
+  const sat2ParallaxX = useTransform(smoothSecX, [-0.5, 0.5], [-28, 28]);
+  const sat2ParallaxY = useTransform(smoothSecY, [-0.5, 0.5], [22, -22]);
+  const hudTopParallaxX = useTransform(smoothSecX, [-0.5, 0.5], [42, -42]);
+  const hudTopParallaxY = useTransform(smoothSecY, [-0.5, 0.5], [-24, 24]);
+  const hudBotParallaxX = useTransform(smoothSecX, [-0.5, 0.5], [-32, 32]);
+  const hudBotParallaxY = useTransform(smoothSecY, [-0.5, 0.5], [-20, 20]);
+
+  const handleSectionMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const xNorm = (e.clientX - rect.left) / Math.max(1, rect.width) - 0.5;
+    const yNorm = (e.clientY - rect.top) / Math.max(1, rect.height) - 0.5;
+    sectionMouseX.set(xNorm);
+    sectionMouseY.set(yNorm);
+  };
+
+  const handleSectionMouseLeave = () => {
+    sectionMouseX.set(0);
+    sectionMouseY.set(0);
+  };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -110,47 +164,61 @@ export const Hero: React.FC<HeroProps> = ({ onViewWork, onDownloadCv }) => {
 
   return (
     <motion.section
+      ref={sectionRef}
       id="home"
+      onMouseMove={handleSectionMouseMove}
+      onMouseLeave={handleSectionMouseLeave}
       initial={SECTION_REVEAL.initial}
       whileInView={SECTION_REVEAL.whileInView}
       viewport={SECTION_REVEAL.viewport}
       transition={SECTION_REVEAL.transition}
       className="relative pt-4 pb-16 md:pt-8 md:pb-24 overflow-hidden perspective-[1200px]"
     >
-      {/* Ambient GPU-Composited Cyber Corner Frames & Quantum Energy Orbs inside section#home */}
+      {/* Multi-Layer Mouse-Tracked 3D Background Planes inside section#home */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden z-0">
-        {/* Top-Left & Top-Right Animated HUD Frame Brackets */}
+        {/* Layer 1: Deep 3D Perspective Orbital Rings & Cyber Grid Plane */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: [0.35, 0.75, 0.35], scale: 1 }}
-          transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
-          className="hidden lg:block absolute top-3 left-6 w-12 h-12 border-t border-l border-cyan-400/40 rounded-tl-xl"
-        />
+          style={{ x: bgDeepX, y: bgDeepY }}
+          className="absolute inset-0 transform-gpu"
+        >
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[680px] h-[680px] rounded-full border border-cyan-500/15 pointer-events-none" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[920px] h-[920px] rounded-full border border-dashed border-fuchsia-500/12 pointer-events-none" />
+        </motion.div>
+
+        {/* Layer 2: Mid-Depth HUD Corner Brackets & Horizon Laser */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: [0.35, 0.75, 0.35], scale: 1 }}
-          transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 2.2 }}
-          className="hidden lg:block absolute top-3 right-6 w-12 h-12 border-t border-r border-fuchsia-400/40 rounded-tr-xl"
-        />
-        {/* Subtle Sweeping Horizontal Horizon Laser */}
+          style={{ x: bgMidX, y: bgMidY }}
+          className="absolute inset-0 transform-gpu"
+        >
+          <div className="hidden lg:block absolute top-3 left-6 w-12 h-12 border-t border-l border-cyan-400/55 rounded-tl-xl" />
+          <div className="hidden lg:block absolute top-3 right-6 w-12 h-12 border-t border-r border-fuchsia-400/55 rounded-tr-xl" />
+          <div className="hidden lg:block absolute bottom-6 left-6 w-10 h-10 border-b border-l border-purple-400/40 rounded-bl-xl" />
+          <div className="hidden lg:block absolute bottom-6 right-6 w-10 h-10 border-b border-r border-cyan-400/40 rounded-br-xl" />
+          <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/45 to-transparent" />
+        </motion.div>
+
+        {/* Layer 3: Foreground 3D Depth-of-Field Quantum Reticles */}
         <motion.div
-          animate={{ x: ['-100%', '100%'] }}
-          transition={{ duration: 9, repeat: Infinity, ease: 'linear' }}
-          className="absolute top-0 left-0 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/45 to-transparent"
-        />
+          style={{ x: bgForeX, y: bgForeY }}
+          className="absolute inset-0 transform-gpu"
+        >
+          <div className="hidden md:block absolute top-[18%] left-[46%] w-2 h-2 rounded-full bg-cyan-400/50 shadow-[0_0_12px_#06b6d4]" />
+          <div className="hidden md:block absolute bottom-[22%] left-[42%] w-1.5 h-1.5 rounded-full bg-fuchsia-400/50 shadow-[0_0_10px_#d946ef]" />
+        </motion.div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-center">
           {/* Far Left Cyber Bar & Hero Left Content */}
           <div className="lg:col-span-6 flex gap-4 xl:gap-8 items-start">
-            {/* Leftmost Vertical Cyber Widget with Staggered 3D Icon Arrival & Traveling Energy Pulse */}
+            {/* Leftmost Vertical Cyber Widget with Mouse-Tracked 3D Parallax */}
             <motion.div
               initial={arrivalBar.initial}
               whileInView={arrivalBar.whileInView}
               viewport={{ once: true, amount: 0.12 }}
               transition={arrivalBar.transition}
-              className="hidden sm:block shrink-0"
+              style={{ x: barParallaxX, y: barParallaxY }}
+              className="hidden sm:block shrink-0 transform-gpu"
             >
               <motion.div
                 whileHover={{ y: -3, borderColor: 'rgba(34,211,238,0.65)' }}
@@ -159,19 +227,10 @@ export const Hero: React.FC<HeroProps> = ({ onViewWork, onDownloadCv }) => {
               >
                 {/* Top & Vertical Laser Streams */}
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent animate-laser-y opacity-80" />
-                <motion.div
-                  animate={{ y: ['-100%', '500%'] }}
-                  transition={{ duration: 3.6, repeat: Infinity, ease: 'linear' }}
-                  className="absolute left-0 top-0 w-[1.5px] h-12 bg-gradient-to-b from-transparent via-fuchsia-400 to-transparent pointer-events-none"
-                />
 
-                <motion.span
-                  animate={{ opacity: [0.55, 1, 0.55] }}
-                  transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-                  className="text-[10px] font-mono text-cyan-300 font-bold select-none"
-                >
+                <span className="text-[10px] font-mono text-cyan-300 font-bold select-none">
                   01
-                </motion.span>
+                </span>
                 <div className="w-[1px] h-4 bg-gradient-to-b from-cyan-400/50 to-purple-500/35" />
                 <div className="flex flex-col gap-3 text-slate-400">
                   <motion.a
@@ -299,18 +358,23 @@ export const Hero: React.FC<HeroProps> = ({ onViewWork, onDownloadCv }) => {
                   </motion.button>
                 </div>
                 <div className="w-[1px] h-4 bg-gradient-to-b from-purple-500/35 to-fuchsia-400/50" />
-                <motion.span
-                  animate={{ rotateY: [0, 180, 360] }}
-                  transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
-                  className="text-[10px] font-mono text-fuchsia-400 font-bold select-none inline-block"
-                >
+                <span className="text-[10px] font-mono text-fuchsia-400 font-bold select-none inline-block">
                   S
-                </motion.span>
+                </span>
               </motion.div>
             </motion.div>
 
-            {/* Main Left Text Details */}
-            <div className="space-y-6 pt-2 flex-1">
+            {/* Main Left Text Details with Mouse-Tracked 3D Tilt & Parallax */}
+            <motion.div
+              style={{
+                x: leftContentX,
+                y: leftContentY,
+                rotateX: leftRotateX,
+                rotateY: leftRotateY,
+                transformStyle: 'preserve-3d',
+              }}
+              className="space-y-6 pt-2 flex-1 transform-gpu"
+            >
               {/* Cycling Animated Subtitle Badge with 3D Flip Transition & Holographic Sweep */}
               <motion.div
                 initial={arrivalBadge.initial}
@@ -323,13 +387,6 @@ export const Hero: React.FC<HeroProps> = ({ onViewWork, onDownloadCv }) => {
                   transition={{ type: 'spring', stiffness: 320, damping: 20 }}
                   className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-purple-500/60 bg-gradient-to-r from-purple-950/65 via-fuchsia-950/50 to-purple-950/65 backdrop-blur-md text-[11px] font-mono uppercase tracking-wider text-purple-200 shadow-[0_0_25px_rgba(168,85,247,0.35)] relative overflow-hidden"
                 >
-                  {/* Sweeping Light Beam across Role Badge */}
-                  <motion.span
-                    animate={{ x: ['-120%', '240%'] }}
-                    transition={{ duration: 3.8, repeat: Infinity, ease: 'linear' }}
-                    className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-12 pointer-events-none"
-                  />
-
                   <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-fuchsia-400 opacity-80" />
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-fuchsia-400 shadow-[0_0_8px_#ec4899]" />
@@ -363,13 +420,9 @@ export const Hero: React.FC<HeroProps> = ({ onViewWork, onDownloadCv }) => {
                 className="space-y-1.5"
               >
                 <div className="hero-shadow-aura-brand text-2xl sm:text-3xl font-orbitron font-black tracking-widest text-white select-none inline-flex items-center gap-2 relative pb-1">
-                  <motion.span
-                    animate={{ x: [0, -3, 0] }}
-                    transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
-                    className="text-cyan-300 drop-shadow-[0_0_14px_#06b6d4] inline-block"
-                  >
+                  <span className="text-cyan-300 drop-shadow-[0_0_14px_#06b6d4] inline-block">
                     &lt;
-                  </motion.span>
+                  </span>
                   <CyberTextReveal
                     text="APURBA"
                     mode="chars"
@@ -377,20 +430,11 @@ export const Hero: React.FC<HeroProps> = ({ onViewWork, onDownloadCv }) => {
                     staggerDelay={0.048}
                     className="tracking-[0.25em]"
                   />
-                  <motion.span
-                    animate={{ x: [0, 3, 0] }}
-                    transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
-                    className="text-fuchsia-300 drop-shadow-[0_0_14px_#d946ef] inline-block"
-                  >
+                  <span className="text-fuchsia-300 drop-shadow-[0_0_14px_#d946ef] inline-block">
                     / &gt;
-                  </motion.span>
-                  {/* Animated Dual-Chromatic Laser Underline */}
-                  <motion.span
-                    animate={{ scaleX: [0.35, 1, 0.35], opacity: [0.5, 1, 0.5] }}
-                    transition={{ duration: 3.4, repeat: Infinity, ease: 'easeInOut' }}
-                    style={{ transformOrigin: '0% 50%' }}
-                    className="absolute bottom-0 left-0 right-0 h-[2px] rounded-full bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-transparent shadow-[0_0_10px_#22d3ee]"
-                  />
+                  </span>
+                  {/* Dual-Chromatic Laser Underline */}
+                  <span className="absolute bottom-0 left-0 right-0 h-[2px] rounded-full bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-transparent shadow-[0_0_10px_#22d3ee]" />
                 </div>
                 <p className="hero-shadow-aura-subbrand text-[11px] sm:text-xs font-luxury text-cyan-300 tracking-[0.22em] font-bold uppercase">
                   <CyberTextReveal
@@ -403,12 +447,13 @@ export const Hero: React.FC<HeroProps> = ({ onViewWork, onDownloadCv }) => {
                 </p>
               </motion.div>
 
-              {/* Big Headline with Dual-Mode 3D Interactive Character Reveal & Shadow Glow Aura */}
+              {/* Big Headline with Dual-Mode 3D Interactive Character Reveal, Parallax & Shadow Glow Aura */}
               <motion.div
                 initial={arrivalHeading.initial}
                 whileInView={arrivalHeading.whileInView}
                 viewport={{ once: true, amount: 0.15 }}
                 transition={arrivalHeading.transition}
+                style={{ x: headlineParallaxX, y: headlineParallaxY }}
               >
                 <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold tracking-tight font-display uppercase leading-[1.08]">
                   <span className="hero-shadow-aura-title-white block text-white">
@@ -422,11 +467,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewWork, onDownloadCv }) => {
                       charClassName="hover:text-cyan-300 transition-colors duration-150 cursor-default"
                     />
                   </span>
-                  <motion.span
-                    animate={{ y: [0, -2, 0] }}
-                    transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut' }}
-                    className="hero-shadow-aura-title-pink block text-[#ff38b8] mt-1.5 font-editorial italic tracking-wide"
-                  >
+                  <span className="hero-shadow-aura-title-pink block text-[#ff38b8] mt-1.5 font-editorial italic tracking-wide">
                     <CyberTextReveal
                       text="YOU IMAGINE."
                       mode="chars"
@@ -436,7 +477,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewWork, onDownloadCv }) => {
                       interactiveHover={true}
                       charClassName="hover:text-white transition-colors duration-150 cursor-default"
                     />
-                  </motion.span>
+                  </span>
                 </h1>
               </motion.div>
 
@@ -476,12 +517,6 @@ export const Hero: React.FC<HeroProps> = ({ onViewWork, onDownloadCv }) => {
                   onMouseEnter={() => cyberSound.playHover()}
                   className="group relative inline-flex items-center gap-2 px-7 py-3.5 text-xs sm:text-sm font-orbitron font-bold tracking-wider text-white uppercase rounded-xl bg-gradient-to-r from-[#d91993] via-[#ec26a6] to-[#a855f7] hover:from-[#c21481] hover:to-[#db1b96] transition-all shadow-[0_0_32px_rgba(236,38,166,0.55)] hover:shadow-[0_0_45px_rgba(236,38,166,0.85)] overflow-hidden cursor-pointer"
                 >
-                  {/* Continuous Autonomous Holographic Glint */}
-                  <motion.span
-                    animate={{ x: ['-140%', '240%'] }}
-                    transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut', repeatDelay: 1.2 }}
-                    className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 pointer-events-none"
-                  />
                   <span className="relative z-10">VIEW WORK</span>
                   <ArrowUpRight className="relative z-10 w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                   <span className="absolute inset-0 w-full h-full bg-white/25 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none" />
@@ -514,11 +549,6 @@ export const Hero: React.FC<HeroProps> = ({ onViewWork, onDownloadCv }) => {
                   transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                   className="inline-flex items-center gap-2.5 px-4 py-2 rounded-xl bg-[#0b051e]/65 backdrop-blur-md border border-purple-500/40 text-xs font-mono text-slate-200 shadow-[0_0_20px_rgba(168,85,247,0.18)] relative overflow-hidden"
                 >
-                  <motion.span
-                    animate={{ x: ['-120%', '260%'] }}
-                    transition={{ duration: 4.5, repeat: Infinity, ease: 'linear' }}
-                    className="absolute inset-y-0 w-1/4 bg-gradient-to-r from-transparent via-emerald-400/15 to-transparent skew-x-12 pointer-events-none"
-                  />
                   <span className="text-fuchsia-400 font-semibold animate-pulse">//</span>
                   <span>AVAILABLE FOR AI CONTRACTS &amp; VENTURES</span>
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-glow ml-1" />
@@ -559,7 +589,7 @@ export const Hero: React.FC<HeroProps> = ({ onViewWork, onDownloadCv }) => {
                   ))}
                 </div>
               </motion.div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Right Hero Visual & Cyber HUD Cards */}
@@ -570,11 +600,10 @@ export const Hero: React.FC<HeroProps> = ({ onViewWork, onDownloadCv }) => {
             transition={{ type: 'spring', stiffness: 115, damping: 20, mass: 0.72, delay: 0.05 }}
             className="lg:col-span-6 relative flex justify-center items-center mt-6 lg:mt-0 perspective-[1100px]"
           >
-            {/* Developer Portrait Container with Interactive 3D Mouse Tilt & Autonomous Floating */}
+            {/* Developer Portrait Container with Interactive 3D Mouse Tilt & Depth Parallax */}
             <motion.div
-              animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
-              className="w-full max-w-[420px] sm:max-w-[460px]"
+              style={{ x: portraitParallaxX, y: portraitParallaxY }}
+              className="w-full max-w-[420px] sm:max-w-[460px] transform-gpu"
             >
               <motion.div
                 ref={cardRef}
@@ -632,61 +661,48 @@ export const Hero: React.FC<HeroProps> = ({ onViewWork, onDownloadCv }) => {
               </motion.div>
             </motion.div>
 
-            {/* Satellite Chip 1 (Top-Left) */}
+            {/* Satellite Chip 1 (Top-Left) with Independent 3D Parallax */}
             <motion.div
               initial={{ opacity: 0, x: -30, y: -22, scale: 0.86 }}
               whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
               viewport={{ once: true, amount: 0.12 }}
               transition={{ type: 'spring', stiffness: 135, damping: 20, delay: 0.12 }}
               whileHover={{ scale: 1.08, y: -4 }}
-              className="animate-float-smooth absolute -top-4 -left-2 sm:-left-6 z-30 px-3.5 py-1.5 rounded-xl bg-[#0a041f]/75 border border-fuchsia-500/65 shadow-[0_0_22px_rgba(217,70,239,0.38)] backdrop-blur-md hidden sm:flex items-center gap-2 overflow-hidden"
+              style={{ x: sat1ParallaxX, y: sat1ParallaxY }}
+              className="animate-float-smooth absolute -top-4 -left-2 sm:-left-6 z-30 px-3.5 py-1.5 rounded-xl bg-[#0a041f]/75 border border-fuchsia-500/65 shadow-[0_0_22px_rgba(217,70,239,0.38)] backdrop-blur-md hidden sm:flex items-center gap-2 overflow-hidden transform-gpu"
             >
-              <motion.span
-                animate={{ x: ['-120%', '240%'] }}
-                transition={{ duration: 3.5, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-fuchsia-400/20 to-transparent skew-x-12 pointer-events-none"
-              />
               <Cpu className="w-3.5 h-3.5 text-fuchsia-400 animate-pulse" />
               <span className="text-[9.5px] font-mono font-bold text-fuchsia-200">
                 AI ENGINE: 99.8% PRECISION
               </span>
             </motion.div>
 
-            {/* Satellite Chip 2 (Bottom-Left) */}
+            {/* Satellite Chip 2 (Bottom-Left) with Independent 3D Parallax */}
             <motion.div
               initial={{ opacity: 0, x: -30, y: 22, scale: 0.86 }}
               whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
               viewport={{ once: true, amount: 0.12 }}
               transition={{ type: 'spring', stiffness: 135, damping: 20, delay: 0.18 }}
               whileHover={{ scale: 1.08, y: -4 }}
-              className="animate-float-reverse absolute bottom-20 -left-4 sm:-left-8 z-30 px-3.5 py-1.5 rounded-xl bg-[#080218]/75 border border-emerald-500/65 shadow-[0_0_22px_rgba(16,185,129,0.38)] backdrop-blur-md hidden sm:flex items-center gap-2 overflow-hidden"
+              style={{ x: sat2ParallaxX, y: sat2ParallaxY }}
+              className="animate-float-reverse absolute bottom-20 -left-4 sm:-left-8 z-30 px-3.5 py-1.5 rounded-xl bg-[#080218]/75 border border-emerald-500/65 shadow-[0_0_22px_rgba(16,185,129,0.38)] backdrop-blur-md hidden sm:flex items-center gap-2 overflow-hidden transform-gpu"
             >
-              <motion.span
-                animate={{ x: ['-120%', '240%'] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'linear', delay: 1 }}
-                className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent skew-x-12 pointer-events-none"
-              />
               <Radio className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
               <span className="text-[9.5px] font-mono font-bold text-emerald-200">
                 FOREX QUANT: ACTIVE 24/7
               </span>
             </motion.div>
 
-            {/* Top Right HUD: SYSTEM STATUS with Live 12-Color Equalizer Wave Animation */}
+            {/* Top Right HUD: SYSTEM STATUS with Independent 3D Parallax */}
             <motion.div
               initial={{ opacity: 0, x: 32, y: -20, scale: 0.88 }}
               whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
               viewport={{ once: true, amount: 0.12 }}
               transition={{ type: 'spring', stiffness: 125, damping: 20, delay: 0.14 }}
               whileHover={{ scale: 1.05, y: -4 }}
-              className="absolute -top-3 right-0 sm:-right-4 z-20 w-44 sm:w-52 p-3.5 rounded-2xl bg-[#0b0621]/75 backdrop-blur-md border border-cyan-500/65 shadow-[0_0_32px_rgba(6,182,212,0.38)] font-mono overflow-hidden"
+              style={{ x: hudTopParallaxX, y: hudTopParallaxY }}
+              className="absolute -top-3 right-0 sm:-right-4 z-20 w-44 sm:w-52 p-3.5 rounded-2xl bg-[#0b0621]/75 backdrop-blur-md border border-cyan-500/65 shadow-[0_0_32px_rgba(6,182,212,0.38)] font-mono overflow-hidden transform-gpu"
             >
-              {/* Subtle Shimmer Sweep */}
-              <motion.div
-                animate={{ x: ['-120%', '220%'] }}
-                transition={{ duration: 4.8, repeat: Infinity, ease: 'linear' }}
-                className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-cyan-300/10 to-transparent skew-x-12 pointer-events-none"
-              />
               <div className="flex items-center justify-between border-b border-cyan-500/30 pb-1.5 mb-2">
                 <span className="text-[10px] tracking-wider text-cyan-300 font-bold flex items-center gap-1.5">
                   <Activity className="w-3 h-3 text-cyan-400 animate-pulse" />
@@ -705,42 +721,30 @@ export const Hero: React.FC<HeroProps> = ({ onViewWork, onDownloadCv }) => {
                   ];
                   const barHex = barHexes[i % barHexes.length];
                   return (
-                    <motion.div
+                    <div
                       key={i}
-                      animate={{
-                        scaleY: [
-                          h / 100,
-                          Math.max(0.24, ((h + 38) % 98) / 100),
-                          Math.max(0.3, (100 - h * 0.65) / 100),
-                          h / 100,
-                        ],
-                      }}
-                      transition={{
-                        duration: 1.5 + (i % 4) * 0.22,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                        delay: i * 0.06,
-                      }}
                       style={{
+                        height: `${h}%`,
                         backgroundColor: barHex,
                         boxShadow: `0 0 8px ${barHex}`,
-                        transformOrigin: '50% 100%',
+                        animationDelay: `${i * 110}ms`,
                       }}
-                      className="w-1.5 h-full rounded-xs"
+                      className="w-1.5 rounded-xs animate-pulse"
                     />
                   );
                 })}
               </div>
             </motion.div>
 
-            {/* Bottom Right HUD: SKILLS with Animated Number Counters & Multi-Color Glowing Bars */}
+            {/* Bottom Right HUD: SKILLS with Independent 3D Parallax */}
             <motion.div
               initial={{ opacity: 0, x: 32, y: 24, scale: 0.88 }}
               whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
               viewport={{ once: true, amount: 0.12 }}
               transition={{ type: 'spring', stiffness: 125, damping: 20, delay: 0.2 }}
               whileHover={{ scale: 1.04, y: -4 }}
-              className="absolute -bottom-6 right-0 sm:right-2 z-20 w-52 sm:w-60 p-3.5 sm:p-4 rounded-2xl bg-[#0d0725]/78 backdrop-blur-md border border-purple-500/60 shadow-[0_0_38px_rgba(168,85,247,0.34)] font-mono overflow-hidden"
+              style={{ x: hudBotParallaxX, y: hudBotParallaxY }}
+              className="absolute -bottom-6 right-0 sm:right-2 z-20 w-52 sm:w-60 p-3.5 sm:p-4 rounded-2xl bg-[#0d0725]/78 backdrop-blur-md border border-purple-500/60 shadow-[0_0_38px_rgba(168,85,247,0.34)] font-mono overflow-hidden transform-gpu"
             >
               <div className="flex items-center justify-between border-b border-purple-500/30 pb-1.5 mb-2.5">
                 <span className="text-[11px] font-bold tracking-widest text-purple-200 flex items-center gap-1">
@@ -788,18 +792,8 @@ export const Hero: React.FC<HeroProps> = ({ onViewWork, onDownloadCv }) => {
                             background: `linear-gradient(90deg, ${pair.from}, ${pair.to})`,
                             boxShadow: `0 0 10px ${pair.to}`,
                           }}
-                          className="w-full h-full rounded-full relative overflow-hidden"
+                           className="w-full h-full rounded-full relative overflow-hidden"
                         >
-                          <motion.span
-                            animate={{ x: ['-100%', '220%'] }}
-                            transition={{
-                              duration: 2.4,
-                              repeat: Infinity,
-                              ease: 'linear',
-                              delay: sIdx * 0.2,
-                            }}
-                            className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/45 to-transparent"
-                          />
                           <span className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_8px_#fff]" />
                         </motion.div>
                       </div>
@@ -813,4 +807,4 @@ export const Hero: React.FC<HeroProps> = ({ onViewWork, onDownloadCv }) => {
       </div>
     </motion.section>
   );
-};
+});

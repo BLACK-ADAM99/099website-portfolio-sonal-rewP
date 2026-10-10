@@ -157,6 +157,30 @@ export const SectionConnector: React.FC<SectionConnectorProps> = ({
         inViewport ? 'io-slide-up-visible' : 'io-slide-up-hidden'
       }`}
     >
+      {/* Inter-Section Cinematic Lens-Shift Band (Subtle backdrop-filter: blur() transition during scroll) */}
+      <div
+        aria-hidden="true"
+        style={{
+          backdropFilter: isFrameAligned
+            ? 'blur(3.5px) saturate(1.18)'
+            : inViewport
+            ? 'blur(1.5px) saturate(1.06)'
+            : 'blur(0px) saturate(1)',
+          WebkitBackdropFilter: isFrameAligned
+            ? 'blur(3.5px) saturate(1.18)'
+            : inViewport
+            ? 'blur(1.5px) saturate(1.06)'
+            : 'blur(0px) saturate(1)',
+          opacity: isFrameAligned ? 0.92 : inViewport ? 0.55 : 0,
+          maskImage:
+            'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.85) 35%, rgba(0,0,0,0.85) 65%, transparent 100%)',
+          WebkitMaskImage:
+            'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.85) 35%, rgba(0,0,0,0.85) 65%, transparent 100%)',
+          transition:
+            'backdrop-filter 380ms cubic-bezier(0.22, 1, 0.36, 1), -webkit-backdrop-filter 380ms cubic-bezier(0.22, 1, 0.36, 1), opacity 380ms cubic-bezier(0.22, 1, 0.36, 1)',
+        }}
+        className="absolute inset-0 w-full h-full z-0 pointer-events-none"
+      />
       {/* Top Vertical Conduit with Unsheathe Slide-Up & Counter-Propagating Laser Sparks */}
       <motion.div
         initial={false}

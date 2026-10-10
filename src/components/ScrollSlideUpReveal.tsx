@@ -143,7 +143,22 @@ export const ScrollSlideUpReveal: React.FC<ScrollSlideUpRevealProps> = ({
       }}
       className={`relative transform-gpu io-slide-up-target ${isVisible ? 'io-slide-up-visible' : 'io-slide-up-hidden'} ${className}`}
     >
-      {/* Ultra-Smooth Cinema Arrival Horizon Sweep (Pure transform/opacity, zero blur filter) */}
+      {/* Subtle Section-Boundary Cinematic Lens-Shift (backdrop-filter: blur() transition) */}
+      {variant === 'section' && !initiallyVisible && (
+        <div
+          aria-hidden="true"
+          style={{
+            backdropFilter: isVisible ? 'blur(0px)' : 'blur(6px)',
+            WebkitBackdropFilter: isVisible ? 'blur(0px)' : 'blur(6px)',
+            opacity: isVisible ? 0 : 0.85,
+            transition:
+              'backdrop-filter 520ms cubic-bezier(0.22, 1, 0.36, 1), -webkit-backdrop-filter 520ms cubic-bezier(0.22, 1, 0.36, 1), opacity 520ms cubic-bezier(0.22, 1, 0.36, 1)',
+          }}
+          className="pointer-events-none absolute -top-10 inset-x-0 h-24 z-20"
+        />
+      )}
+
+      {/* Ultra-Smooth Cinema Arrival Horizon Sweep */}
       {isVisible && variant === 'section' && (
         <motion.div
           initial={{ scaleX: 0, opacity: 0.9 }}

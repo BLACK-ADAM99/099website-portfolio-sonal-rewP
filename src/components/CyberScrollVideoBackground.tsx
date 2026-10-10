@@ -426,105 +426,84 @@ const NATIVE_4K_HEIGHT = 2160; // True 4K Ultra-HD Vertical Resolution
 const GPU_LRU_CAPACITY = 96; // Maximum 4K frames kept in GPU VRAM simultaneously
 const MAX_CONCURRENT_PREFETCH = 6; // Parallel frame decode workers
 
-// Exact 3D Code Blocks from 00:00 - 00:02.5 of the Reference Video
+// Refined 3D Quantum Architecture Code Holograms (Positioned in peripheral cinema lanes to frame UI without visual glare)
 const VIDEO_CODE_BLOCKS: CodeBlock3D[] = [
   {
-    x: -0.05,
-    y: -0.37,
-    z0: 0.42,
-    headerGlyph: '/T',
-    lines: [],
-  },
-  {
-    x: -0.35,
-    y: -0.33,
-    z0: 0.48,
-    title: 'const root = createNode();',
+    x: -0.38,
+    y: -0.31,
+    z0: 0.50,
+    headerGlyph: 'QUANTUM_KERNEL.ts',
+    subGlyph: 'CORE // 0x7F',
     lines: [
-      'function initCore(ctx) {',
-      '  const stream = ctx.open(0x7F);',
-      '  return stream.sync("60FPS");',
+      'export async function initQuantumCore(ctx: GPUContext) {',
+      '  const pipeline = await ctx.compileShader("SYNAPSE_4K");',
+      '  return pipeline.lockFrameSync({ targetHz: 120 });',
       '}',
-      '// ConnectQuantum Bus',
-      'const bus = new NeuralBus();',
     ],
   },
   {
-    x: 0.31,
-    y: -0.29,
+    x: 0.32,
+    y: -0.30,
     z0: 0.46,
-    headerGlyph: '4. > = x ≤',
+    headerGlyph: 'TENSOR_MATRIX.wgsl',
+    subGlyph: 'SHADER // FP16',
     lines: [
-      'struct Matrix<T> {',
-      '  dim: [3840, 2160],',
-      '  scale: 1.000,',
+      'struct PhotonicMatrix {',
+      '  resolution: vec2<f32>(3840.0, 2160.0),',
+      '  coherence:  0.9984,',
       '};',
     ],
   },
   {
-    x: -0.13,
-    y: -0.13,
-    z0: 0.62,
-    title: 'Console',
-    hasBox: true,
-    hasDiagonalLine: true,
-    lines: [
-      'function test(input_string = "Gov.model", "test") {',
-      '  const idx = Math.floor(t * 540);',
-      '  if (idx >= 0) {',
-      '    renderFrame(frames[idx]);',
-      '    updateBus(idx);',
-      '  }',
-      '}',
-    ],
-  },
-  {
-    x: 0.14,
-    y: -0.13,
-    z0: 0.58,
-    headerGlyph: '=^;</5',
-    subGlyph: 'IIXE',
-    lines: [],
-  },
-  {
-    x: -0.42,
-    y: 0.04,
+    x: -0.41,
+    y: 0.03,
     z0: 0.44,
-    headerGlyph: 'EUAX',
+    headerGlyph: 'NEURAL_BUS.rs',
+    subGlyph: 'LINK // SYNC_OK',
     hasPlatform: true,
     lines: [
-      'channel_id = "0x9A4F";',
-      'state = "SYNCHRONIZED";',
+      '// 48-Pin Optical Conduit Dispatch',
+      'let bus = NeuralBus::connect(0x9A4F);',
+      'bus.route_photons(Channel::Symmetric);',
     ],
   },
   {
-    x: -0.17,
-    y: 0.17,
-    z0: 0.66,
-    lines: [
-      'function() => init_gpu === "ok" {',
-      '  for (let pin = 0; pin < 32; pin++) {',
-      '    kernel.bindPin(pin, "TRACE_HIGH");',
-      '    if (kernel.ready) {',
-      '      kernel.dispatchPulse(60.0);',
-      '    }',
-      '  }',
-      '}',
-    ],
-  },
-  {
-    x: 0.28,
-    y: 0.11,
-    z0: 0.60,
+    x: 0.31,
+    y: 0.06,
+    z0: 0.54,
+    headerGlyph: 'ATLAS_CACHE.cpp',
+    subGlyph: 'VRAM // 60_FRAMES',
     hasHistogram: true,
     hasPlatform: true,
     lines: [
-      'if (isset($frame_sequence)) {',
-      '  $gpu->uploadBitmap($frame_sequence);',
-      '  $clock->lockFrameRate(60);',
-      '  $status = "ALIGNED_OK";',
-      '  return $status;',
+      'void WebGLAtlas::prefetchLookahead(int frameIdx) {',
+      '  gpuQueue.uploadTextureSubImage2D(frameIdx);',
+      '  telemetry.status = STATE_ALIGNED_1_TO_1;',
       '}',
+    ],
+  },
+  {
+    x: -0.34,
+    y: 0.25,
+    z0: 0.62,
+    headerGlyph: 'SINGULARITY_CORE.py',
+    subGlyph: 'TENSOR // 16_CORE',
+    lines: [
+      'def calibrate_gimbal_rings(scroll_sec: float):',
+      '    phase = smoothstep(1.70, 2.95, scroll_sec)',
+      '    return QuantumReactor.ignite(phase)',
+    ],
+  },
+  {
+    x: 0.27,
+    y: 0.26,
+    z0: 0.66,
+    headerGlyph: 'OPTICAL_LUT.glsl',
+    subGlyph: 'ANAMORPHIC // HDR',
+    lines: [
+      '// Volumetric God-Ray & Chromatic Balance',
+      'vec4 color = sampleOpticalLUT(uv, actSpectrum);',
+      'fragColor = mix(deepObsidian, color, 0.92);',
     ],
   },
 ];
@@ -891,6 +870,7 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
     // Calibrate exact DOM scroll positions of every Section & SectionConnector so video frames align 1:1
     const calibrateSectionMilestones = () => {
       const vh = window.innerHeight || 1080;
+      const currentScroll = window.__lenisScrollState?.scroll ?? window.scrollY;
       const maxScroll = Math.max(1, document.documentElement.scrollHeight - vh);
       cachedMaxScroll = maxScroll;
 
@@ -901,7 +881,7 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
         const el = document.querySelector<HTMLElement>(spec.selector);
         if (!el) continue;
         const rect = el.getBoundingClientRect();
-        const absTop = rect.top + window.scrollY;
+        const absTop = rect.top + currentScroll;
         const targetScroll = spec.alignCenter
           ? absTop - vh * 0.42 + Math.min(rect.height * 0.25, vh * 0.18)
           : absTop;
@@ -972,19 +952,20 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
         lastViewportW = vw;
         lastViewportH = vh;
         const aspect = vh / vw;
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.35);
 
         const targetW =
           vw >= vh
-            ? Math.min(1280, Math.max(960, vw))
-            : Math.min(720, Math.max(540, vw));
-        const targetH = Math.max(480, Math.round(targetW * aspect));
+            ? Math.min(1680, Math.max(1120, Math.round(vw * dpr)))
+            : Math.min(960, Math.max(640, Math.round(vw * dpr)));
+        const targetH = Math.max(540, Math.round(targetW * aspect));
 
         if (canvas.width !== targetW || canvas.height !== targetH) {
           canvas.width = targetW;
           canvas.height = targetH;
           renderScale = Math.max(targetW, targetH) / 1920;
           ctx.imageSmoothingEnabled = true;
-          ctx.imageSmoothingQuality = 'low';
+          ctx.imageSmoothingQuality = 'high';
           builtIn4KLruCacheRef.current.clear();
         }
 
@@ -1002,6 +983,20 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
     updateMetrics();
     window.addEventListener('resize', updateMetrics, { passive: true });
 
+    // Interactive 3D Cinema Camera Mouse/Pointer Parallax State
+    let targetMouseX = 0;
+    let targetMouseY = 0;
+    let smoothMouseX = 0;
+    let smoothMouseY = 0;
+
+    const handlePointerMove = (e: MouseEvent) => {
+      const vw = Math.max(1, window.innerWidth);
+      const vh = Math.max(1, window.innerHeight);
+      targetMouseX = ((e.clientX / vw) - 0.5) * 2; // -1 to +1
+      targetMouseY = ((e.clientY / vh) - 0.5) * 2; // -1 to +1
+    };
+    window.addEventListener('mousemove', handlePointerMove, { passive: true });
+
     const resizeObserver = new ResizeObserver(() => {
       calibrateSectionMilestones();
     });
@@ -1010,8 +1005,17 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
       resizeObserver.observe(document.body);
     }
 
-    // Deterministic 96 Stream Stars across the 6 S-curved Ribbons (Sharp Core + Foreground Bokeh)
-    const streamDots: StreamDot[] = Array.from({ length: 96 }, (_, i) => {
+    // Recalibrate immediately whenever lazy-loaded <Suspense> sections mount into <main>
+    const domMutationObserver = new MutationObserver(() => {
+      calibrateSectionMilestones();
+    });
+    const mainEl = document.querySelector('main') || document.body;
+    if (mainEl) {
+      domMutationObserver.observe(mainEl, { childList: true, subtree: true });
+    }
+
+    // Deterministic 120 Stream Stars across the 6 S-curved Ribbons (Sharp Core + Foreground Bokeh)
+    const streamDots: StreamDot[] = Array.from({ length: 120 }, (_, i) => {
       const seed1 = Math.sin(i * 12.9898) * 43758.5453;
       const r1 = seed1 - Math.floor(seed1);
       const seed2 = Math.sin(i * 78.233) * 43758.5453;
@@ -1019,21 +1023,21 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
       const seed3 = Math.sin(i * 45.164) * 43758.5453;
       const r3 = seed3 - Math.floor(seed3);
 
-      const isBokeh = i % 6 === 0;
+      const isBokeh = i % 5 === 0;
       return {
         ribbonIdx: i % 6,
         u: r1,
-        spreadX: (r2 - 0.5) * (isBokeh ? 76 : 22),
-        spreadY: (r3 - 0.5) * (isBokeh ? 76 : 22),
-        radius: isBokeh ? 3.8 + r1 * 5.0 : 1.15 + r2 * 2.05,
-        alpha: isBokeh ? 0.24 + r3 * 0.36 : 0.75 + r1 * 0.25,
+        spreadX: (r2 - 0.5) * (isBokeh ? 82 : 24),
+        spreadY: (r3 - 0.5) * (isBokeh ? 82 : 24),
+        radius: isBokeh ? 4.0 + r1 * 5.2 : 1.25 + r2 * 2.15,
+        alpha: isBokeh ? 0.28 + r3 * 0.38 : 0.78 + r1 * 0.22,
         isBokeh,
-        speed: 0.1 + r2 * 0.15,
+        speed: 0.14 + r2 * 0.22,
       };
     });
 
-    // Deterministic 40 Radial 3D Perspective Streaks & Volumetric Star Motes (00:00 - 00:09)
-    const radialTicks = Array.from({ length: 40 }, (_, i) => {
+    // Deterministic 72 Radial 3D Perspective Warp Streaks & Volumetric Star Motes (00:00 - 00:09)
+    const radialTicks = Array.from({ length: 72 }, (_, i) => {
       const s1 = Math.sin(i * 19.19) * 10000;
       const r1 = s1 - Math.floor(s1);
       const s2 = Math.sin(i * 91.7) * 10000;
@@ -1042,10 +1046,10 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
       const r3 = s3 - Math.floor(s3);
       return {
         angle: r1 * Math.PI * 2,
-        dist: 0.13 + r2 * 0.87,
+        dist: 0.11 + r2 * 0.89,
         z: r3,
-        len: 10 + r1 * 28,
-        isLine: r2 < 0.48,
+        len: 12 + r1 * 34,
+        isLine: r2 < 0.52,
       };
     });
 
@@ -1084,7 +1088,8 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
       dh: number,
       alpha: number,
       velocityFactor: number = 0,
-      zoomScale: number = 1.0
+      zoomScale: number = 1.0,
+      panYOffset: number = 0
     ) => {
       if (alpha <= 0.002 || source.width <= 0 || source.height <= 0) return;
       ctx.save();
@@ -1092,10 +1097,10 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
       const scaleCover = Math.max(dw / source.width, dh / source.height);
       const scaleContain = Math.min(dw / source.width, dh / source.height);
       const baseScale = dw < dh ? scaleContain * 1.35 : scaleCover;
-      const motionScale = baseScale * zoomScale * (1 + velocityFactor * 0.004);
+      const motionScale = baseScale * zoomScale * (1 + Math.abs(velocityFactor) * 0.005);
       const rw = source.width * motionScale;
       const rh = source.height * motionScale;
-      ctx.drawImage(source, (dw - rw) * 0.5, (dh - rh) * 0.5, rw, rh);
+      ctx.drawImage(source, (dw - rw) * 0.5, (dh - rh) * 0.5 + panYOffset, rw, rh);
       ctx.restore();
     };
 
@@ -1119,13 +1124,19 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
       rafId = requestAnimationFrame(renderFrame);
       if (document.hidden) return;
 
+      // Auto-recalibrate if document height shifted (e.g. lazy section expanded) or knots were incomplete
+      const liveMaxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      if (Math.abs(liveMaxScroll - cachedMaxScroll) > 4 || milestones.length < 12) {
+        calibrateSectionMilestones();
+      }
+
       // Read sub-pixel Lenis scroll (desktop) or hardware-composited window.scrollY (mobile touch)
       const currentScrollY = getExactScrollY();
       const targetP = mapScrollYToAlignedVideoProgress(currentScrollY);
-      const isActivelyScrolling = Math.abs(targetP - smoothP) > 0.0003;
+      const isActivelyScrolling = Math.abs(targetP - smoothP) > 0.00015;
 
-      // When user is idle (not scrolling), throttle background ambient animation to ~24fps to save CPU/GPU
-      if (!isActivelyScrolling && now - lastDrawTime < 42) {
+      // Maintain 60FPS real-time cinema smoothness even when idle
+      if (!isActivelyScrolling && now - lastDrawTime < 15.5) {
         return;
       }
 
@@ -1134,12 +1145,16 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
       lastDrawTime = now;
       const elapsed = now * 0.001;
 
-      // Frame-rate-independent lockstep across 60Hz, 120Hz ProMotion, 144Hz, and 240Hz displays
+      // Smooth 3D cinema mouse parallax damping
+      smoothMouseX += (targetMouseX - smoothMouseX) * 0.075;
+      smoothMouseY += (targetMouseY - smoothMouseY) * 0.075;
+
+      // Zero-lag 1:1 lockstep with Lenis scroll so the background video and website DOM run together simultaneously
       const isLenisSmoothing = Boolean(window.__lenisScrollState?.isSmooth);
-      const baseResponsiveness = isLenisSmoothing ? 0.85 : 0.72;
+      const baseResponsiveness = isLenisSmoothing ? 0.96 : 0.86;
       const lerpFactor = 1 - Math.pow(1 - baseResponsiveness, dtMs / 16.6667);
       smoothP += (targetP - smoothP) * lerpFactor;
-      if (Math.abs(targetP - smoothP) < 0.00002) {
+      if (Math.abs(targetP - smoothP) < 0.00001) {
         smoothP = targetP;
       }
 
@@ -1264,41 +1279,47 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
 
       const sec = p * 9.0; // Exact 0.00s to 9.00s cinema timeline (60 FPS -> 540 frames)
       const { act: activeAct, localProgress: actLocalProgress } = getActiveCinemaAct(sec);
-      const subtleBreath = Math.sin(elapsed * 1.35) * 0.0062;
+      const subtleBreath = Math.sin(elapsed * 1.45) * 0.006;
 
-      // Continuous 3D IMAX Cinema Camera Trajectory across all 9 Acts (Smooth Dolly, Crane & Roll)
+      // Scroll-Synchronized 3D IMAX Camera Trajectory + Interactive Mouse Parallax across all 9 Acts
+      const parallaxX = smoothMouseX * (w * 0.022);
+      const parallaxY = smoothMouseY * (h * 0.018);
+      // Direct kinetic scroll pitch so scrolling the website physically moves the 3D camera in unison
+      const scrollKineticPitchY = clamp(-currentVelocity * 1.35 * renderScale, -26 * renderScale, 26 * renderScale);
       const camPanX =
-        Math.sin(p * Math.PI * 2.0 + elapsed * 0.28) * (w * 0.016) +
-        Math.cos(elapsed * 0.52) * (w * 0.004);
+        Math.sin(p * Math.PI * 2.0) * (w * 0.022) +
+        Math.cos(elapsed * 0.55) * (w * 0.003) +
+        parallaxX;
       const camCraneY =
-        Math.cos(p * Math.PI * 1.5 + elapsed * 0.22) * (h * 0.013) +
-        Math.sin(elapsed * 0.44) * (h * 0.0035);
-      const camRoll = Math.sin(p * Math.PI * 2.5 + elapsed * 0.26) * 0.0085;
+        Math.cos(p * Math.PI * 1.5) * (h * 0.018) +
+        scrollKineticPitchY +
+        parallaxY;
       const focusCenterX = cx + camPanX;
       const focusCenterY = cy + camCraneY;
 
       ctx.save();
 
-      // 1. Exact Deep Matte Slate-Obsidian 3D Chamber (#04070b -> #15212d) + Cinema Act LUT Tint
+      // 1. Exact Deep Matte Slate-Obsidian 3D Chamber (#020408 -> #162436) + Cinema Act LUT Tint
       const bgGrad = ctx.createRadialGradient(
         focusCenterX,
         focusCenterY,
         minDim * 0.01,
         cx,
         cy,
-        Math.max(w, h) * 0.82
+        Math.max(w, h) * 0.85
       );
-      bgGrad.addColorStop(0, '#182635');
-      bgGrad.addColorStop(0.42, '#0b121b');
-      bgGrad.addColorStop(0.78, '#05090f');
-      bgGrad.addColorStop(1, '#020407');
+      bgGrad.addColorStop(0, '#1a2b3c');
+      bgGrad.addColorStop(0.38, '#0c1520');
+      bgGrad.addColorStop(0.75, '#050910');
+      bgGrad.addColorStop(1, '#020306');
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, w, h);
 
-      // 1B. Continuous 9-Act Series Blend of Pre-Decoded 4K UHD Photorealistic Keyframes (00:00 -> 00:09)
+      // 1B. Strictly Scroll-Synchronized 9-Act Blend of Pre-Decoded 4K UHD Photorealistic Keyframes
       const kf = photorealKeyframesRef.current;
       const kfTimes = [0.0, 2.75, 5.75, 9.0];
       if (kf[0] || kf[1] || kf[2] || kf[3]) {
+        // Locked 1:1 to scroll timeline (sec) so scrolling directly scrubs the 4K video keyframes
         let segIdx = 0;
         if (sec >= kfTimes[2]) segIdx = 2;
         else if (sec >= kfTimes[1]) segIdx = 1;
@@ -1310,140 +1331,227 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
         const bmpA = kf[segIdx];
         const bmpB = kf[segIdx + 1];
 
-        const zoomA = 1.0 + localU * 0.092 + subtleBreath + p * 0.032;
-        const zoomB = 0.945 + localU * 0.092 + subtleBreath + p * 0.032;
+        // Progressive camera dolly & vertical scroll travel across each keyframe segment
+        const zoomA = 1.04 + localU * 0.14 + subtleBreath + p * 0.06;
+        const zoomB = 0.96 + localU * 0.14 + subtleBreath + p * 0.06;
+        const panYA = (0.35 - localU) * (h * 0.055) + scrollKineticPitchY * 0.45;
+        const panYB = (0.85 - localU) * (h * 0.055) + scrollKineticPitchY * 0.45;
 
         ctx.save();
-        ctx.translate(camPanX * 0.55, camCraneY * 0.55);
+        ctx.translate(camPanX * 0.48, camCraneY * 0.48);
         if (bmpA) {
-          drawSuppliedFrame(bmpA, w, h, 1.0, currentVelocity * 0.05, zoomA);
+          drawSuppliedFrame(bmpA, w, h, 1.0, currentVelocity * 0.06, zoomA, panYA);
         }
         if (bmpB) {
-          drawSuppliedFrame(bmpB, w, h, localU, currentVelocity * 0.05, zoomB);
+          drawSuppliedFrame(bmpB, w, h, localU, currentVelocity * 0.06, zoomB, panYB);
         }
         ctx.restore();
       }
 
-      // 1C. Cinema Series Atmospheric Color-Grading LUT (Single Pass)
+      // 1C. Volumetric Crepuscular God-Rays (Rotating directly with scroll progress p)
+      ctx.save();
+      ctx.translate(focusCenterX, focusCenterY);
+      const rayCount = 8;
+      const maxRayLen = Math.max(w, h) * 0.76;
+      const rayGrad = ctx.createRadialGradient(0, 0, minDim * 0.06, 0, 0, maxRayLen);
+      rayGrad.addColorStop(0, `rgba(${activeAct.accentRgb}, 0.09)`);
+      rayGrad.addColorStop(0.35, `rgba(${activeAct.accentRgb}, 0.045)`);
+      rayGrad.addColorStop(0.75, `rgba(${activeAct.secondaryRgb}, 0.018)`);
+      rayGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = rayGrad;
+
+      for (let r = 0; r < rayCount; r++) {
+        const baseAngle =
+          (r / rayCount) * Math.PI * 2 +
+          p * Math.PI * (r % 2 === 0 ? 1.6 : -1.3) +
+          elapsed * (r % 2 === 0 ? 0.04 : -0.03);
+        const raySpread = 0.055 + 0.015 * Math.sin(sec * 1.8 + r * 1.7);
+
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.arc(0, 0, maxRayLen, baseAngle - raySpread, baseAngle + raySpread);
+        ctx.closePath();
+        ctx.fill();
+      }
+      ctx.restore();
+
+      // 1D. Cinema Series Optical Color-Grading LUT (High-Contrast Deep Cinema Tone, Zero Milky Glare)
       ctx.save();
       const lutGrad = ctx.createRadialGradient(
         focusCenterX,
         focusCenterY,
-        minDim * 0.02,
+        minDim * 0.08,
         cx,
         cy,
-        Math.max(w, h) * 0.72
+        Math.max(w, h) * 0.78
       );
-      lutGrad.addColorStop(0, `rgba(245, 252, 255, 0.16)`);
-      lutGrad.addColorStop(0.32, `rgba(${activeAct.accentRgb}, 0.15)`);
-      lutGrad.addColorStop(0.65, `rgba(${activeAct.secondaryRgb}, 0.06)`);
-      lutGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      lutGrad.addColorStop(0, `rgba(${activeAct.accentRgb}, 0.07)`);
+      lutGrad.addColorStop(0.45, `rgba(${activeAct.secondaryRgb}, 0.04)`);
+      lutGrad.addColorStop(1, 'rgba(2, 4, 10, 0.22)');
       ctx.fillStyle = lutGrad;
       ctx.fillRect(0, 0, w, h);
       ctx.restore();
 
-      // Apply subtle 3D Cinema Camera Pan (Axis-Aligned for Hardware Blit Speed)
+      // Apply 3D Mid-Ground Cinema Camera Pan & Scroll Pitch
       ctx.save();
-      ctx.translate(camPanX * 0.65, camCraneY * 0.65);
+      ctx.translate(camPanX * 0.75, camCraneY * 0.75);
 
       const compW = w < h ? h * 0.85 : w;
 
-      // 2. 3D Perspective Floor Grid & Side Platforms (00:00 - 00:05.8, kept light & clear near center)
-      const floorAlpha = 1 - smoothstep(4.5, 7.2, sec) * 0.72;
+      // 2. 3D Perspective Floor & Ceiling Cyber-Grids, Specular Core Reflection & Levitating Platforms (00:00 - 00:04.8)
+      const floorAlpha = 1 - smoothstep(3.6, 5.0, sec);
       if (floorAlpha > 0.01) {
         ctx.save();
-        const horizonY = cy + h * 0.135;
+        // Horizon shifts dynamically with scroll so the 3D chamber tilts as you travel down the page
+        const horizonY = cy + h * (0.145 - smoothstep(0, 4.5, sec) * 0.055);
+        const ceilingY = cy - h * (0.165 - smoothstep(0, 4.5, sec) * 0.045);
 
-        const floorGrad = ctx.createLinearGradient(0, horizonY, 0, h);
-        floorGrad.addColorStop(0, `rgba(18, 30, 44, 0)`);
-        floorGrad.addColorStop(0.55, `rgba(12, 20, 30, ${floorAlpha * 0.14})`);
-        floorGrad.addColorStop(1, `rgba(6, 11, 18, ${floorAlpha * 0.26})`);
-        ctx.fillStyle = floorGrad;
+        // Floor specular reflection pool beneath the central quantum reactor
+        const reflGrad = ctx.createRadialGradient(
+          cx,
+          horizonY + (h - horizonY) * 0.35,
+          minDim * 0.01,
+          cx,
+          horizonY + (h - horizonY) * 0.35,
+          compW * 0.42
+        );
+        reflGrad.addColorStop(0, `rgba(${activeAct.accentRgb}, ${floorAlpha * 0.24})`);
+        reflGrad.addColorStop(0.45, `rgba(${activeAct.secondaryRgb}, ${floorAlpha * 0.10})`);
+        reflGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = reflGrad;
         ctx.fillRect(0, horizonY, w, h - horizonY);
 
-        ctx.strokeStyle = `rgba(200, 222, 240, ${floorAlpha * 0.18})`;
+        // Perspective Floor & Ceiling Radial Lines
+        ctx.strokeStyle = `rgba(186, 230, 253, ${floorAlpha * 0.22})`;
         ctx.lineWidth = 1.25 * renderScale;
-        for (let i = -8; i <= 8; i++) {
-          ctx.beginPath();
-          ctx.moveTo(cx + i * (compW * 0.028), horizonY);
-          ctx.lineTo(cx + i * (compW * 0.24), h);
-          ctx.stroke();
+        ctx.beginPath();
+        for (let i = -9; i <= 9; i++) {
+          // Floor perspective rays
+          ctx.moveTo(cx + i * (compW * 0.026), horizonY);
+          ctx.lineTo(cx + i * (compW * 0.25), h);
+          // Subtle upper ceiling counter-grid rays
+          ctx.moveTo(cx + i * (compW * 0.026), ceilingY);
+          ctx.lineTo(cx + i * (compW * 0.22), 0);
         }
+        ctx.stroke();
 
-        const tileShift = (sec * 0.54 + elapsed * 0.04) % 1;
-        for (let r = 1; r <= 6; r++) {
-          const ry = horizonY + Math.pow((r + tileShift) / 7, 1.78) * (h - horizonY);
+        // Scroll-Synchronized Forward-Gliding 3D Grid Tiles (Driven directly by sec so scrolling moves the floor)
+        const tileShift = ((sec * 2.15 + elapsed * 0.04) % 1 + 1) % 1;
+        for (let r = 1; r <= 7; r++) {
+          const normR = (r + tileShift) / 8;
+          const ry = horizonY + Math.pow(normR, 1.78) * (h - horizonY);
+          const rowAlpha = floorAlpha * (0.12 + normR * 0.24);
+          ctx.strokeStyle = `rgba(210, 236, 255, ${rowAlpha})`;
+          ctx.lineWidth = (0.9 + normR * 0.8) * renderScale;
           ctx.beginPath();
           ctx.moveTo(0, ry);
           ctx.lineTo(w, ry);
           ctx.stroke();
+
+          // Upper ceiling horizontal perspective lines
+          const cyTop = ceilingY - Math.pow(normR, 1.85) * ceilingY;
+          ctx.strokeStyle = `rgba(165, 220, 255, ${rowAlpha * 0.48})`;
+          ctx.beginPath();
+          ctx.moveTo(0, cyTop);
+          ctx.lineTo(w, cyTop);
+          ctx.stroke();
         }
 
-        // Raised 3D Translucent Side Platforms on Left & Right with Glowing White Edges (00:00 - 00:03.5)
-        const platAlpha = (1 - smoothstep(2.4, 3.6, sec)) * floorAlpha;
+        // Scroll-Linked Photonic Laser Scan-Wave sweeping across the 3D floor grid
+        const scanNorm = ((sec * 1.25 + elapsed * 0.05) % 1 + 1) % 1;
+        const scanY = horizonY + Math.pow(scanNorm, 1.78) * (h - horizonY);
+        const scanAlpha = Math.sin(scanNorm * Math.PI) * floorAlpha * 0.68;
+        if (scanAlpha > 0.02) {
+          ctx.strokeStyle = `rgba(${activeAct.accentRgb}, ${scanAlpha})`;
+          ctx.lineWidth = 2.4 * renderScale;
+          ctx.beginPath();
+          ctx.moveTo(cx - compW * (0.12 + scanNorm * 0.75), scanY);
+          ctx.lineTo(cx + compW * (0.12 + scanNorm * 0.75), scanY);
+          ctx.stroke();
+        }
+
+        // Raised 3D Translucent Levitating Side Platforms (Recede past camera as user scrolls past #about)
+        const platAlpha = (1 - smoothstep(2.1, 3.2, sec)) * floorAlpha;
         if (platAlpha > 0.02) {
-          const forwardSlide = sec * 0.18;
+          const forwardSlide = sec * 0.28;
+          const hoverBob = Math.sin(elapsed * 1.8) * (3.5 * renderScale);
           const pScale = 1 + forwardSlide * 0.56;
 
           const drawSteppedPlatform = (pxCenter: number, pyCenter: number, isRight: boolean) => {
             const pw = compW * 0.195 * pScale;
             const ph = h * 0.038 * pScale;
             const stepH = 9 * renderScale * pScale;
+            const py = pyCenter + (isRight ? -hoverBob : hoverBob);
 
             // Lower Step Base
-            ctx.fillStyle = `rgba(14, 24, 36, ${platAlpha * 0.32})`;
-            ctx.strokeStyle = `rgba(220, 238, 252, ${platAlpha * 0.68})`;
+            ctx.fillStyle = `rgba(14, 24, 38, ${platAlpha * 0.38})`;
+            ctx.strokeStyle = `rgba(186, 230, 253, ${platAlpha * 0.72})`;
             ctx.lineWidth = 1.3 * renderScale;
             ctx.beginPath();
-            ctx.moveTo(pxCenter - pw * 0.56, pyCenter + ph * 0.45);
-            ctx.lineTo(pxCenter + pw * 0.56, pyCenter + ph * 0.45);
-            ctx.lineTo(pxCenter + pw * 0.7, pyCenter + ph * 1.35 + stepH);
-            ctx.lineTo(pxCenter - pw * 0.7, pyCenter + ph * 1.35 + stepH);
+            ctx.moveTo(pxCenter - pw * 0.56, py + ph * 0.45);
+            ctx.lineTo(pxCenter + pw * 0.56, py + ph * 0.45);
+            ctx.lineTo(pxCenter + pw * 0.7, py + ph * 1.35 + stepH);
+            ctx.lineTo(pxCenter - pw * 0.7, py + ph * 1.35 + stepH);
             ctx.closePath();
             ctx.fill();
             ctx.stroke();
 
-            // Upper Platform Deck with Bright White Glowing Edge
+            // Upper Platform Deck with Bright White & Cyan Glowing Edge
             const deckGrad = ctx.createLinearGradient(
               pxCenter - pw * 0.5,
-              pyCenter,
+              py,
               pxCenter + pw * 0.5,
-              pyCenter + ph
+              py + ph
             );
-            deckGrad.addColorStop(0, `rgba(24, 38, 52, ${platAlpha * 0.38})`);
-            deckGrad.addColorStop(0.5, `rgba(18, 28, 40, ${platAlpha * 0.32})`);
-            deckGrad.addColorStop(1, `rgba(28, 42, 58, ${platAlpha * 0.38})`);
+            deckGrad.addColorStop(0, `rgba(24, 42, 62, ${platAlpha * 0.44})`);
+            deckGrad.addColorStop(0.5, `rgba(16, 28, 44, ${platAlpha * 0.36})`);
+            deckGrad.addColorStop(1, `rgba(28, 48, 68, ${platAlpha * 0.44})`);
 
             ctx.fillStyle = deckGrad;
             ctx.strokeStyle = `rgba(248, 252, 255, ${platAlpha * 0.96})`;
             ctx.lineWidth = 1.85 * renderScale;
             ctx.beginPath();
-            ctx.moveTo(pxCenter - pw * 0.5, pyCenter);
-            ctx.lineTo(pxCenter + pw * 0.5, pyCenter);
-            ctx.lineTo(pxCenter + pw * 0.62, pyCenter + ph);
-            ctx.lineTo(pxCenter - pw * 0.62, pyCenter + ph);
+            ctx.moveTo(pxCenter - pw * 0.5, py);
+            ctx.lineTo(pxCenter + pw * 0.5, py);
+            ctx.lineTo(pxCenter + pw * 0.62, py + ph);
+            ctx.lineTo(pxCenter - pw * 0.62, py + ph);
             ctx.closePath();
             ctx.fill();
             ctx.stroke();
 
-            // Glowing horizontal light strip on platform front edge (visible in 00:01 - 00:03)
-            ctx.strokeStyle = `rgba(255, 255, 255, ${platAlpha * 0.94})`;
+            // Animated Vertical Hologram Equalizer Pillars rising from the platform deck
+            const barCount = 7;
+            for (let b = 0; b < barCount; b++) {
+              const bx = pxCenter + ((b - (barCount - 1) * 0.5) / barCount) * (pw * 0.68);
+              const bh =
+                (8 + 14 * (0.5 + 0.5 * Math.sin(sec * 5.0 + elapsed * 2.2 + b * 1.1 + (isRight ? 1.5 : 0)))) *
+                renderScale *
+                pScale;
+              ctx.fillStyle =
+                b % 2 === 0
+                  ? `rgba(${activeAct.accentRgb}, ${platAlpha * 0.62})`
+                  : `rgba(240, 249, 255, ${platAlpha * 0.75})`;
+              ctx.fillRect(bx - 1.4 * renderScale, py + ph * 0.35 - bh, 2.8 * renderScale, bh);
+            }
+
+            // Glowing horizontal light strip on platform front edge
+            ctx.strokeStyle = `rgba(255, 255, 255, ${platAlpha * 0.96})`;
             ctx.lineWidth = 2.4 * renderScale;
             ctx.beginPath();
             const stripOffset = isRight ? -pw * 0.12 : pw * 0.12;
-            ctx.moveTo(pxCenter - pw * 0.35 + stripOffset, pyCenter + ph * 1.15);
-            ctx.lineTo(pxCenter + pw * 0.35 + stripOffset, pyCenter + ph * 1.15);
+            ctx.moveTo(pxCenter - pw * 0.35 + stripOffset, py + ph * 1.15);
+            ctx.lineTo(pxCenter + pw * 0.35 + stripOffset, py + ph * 1.15);
             ctx.stroke();
           };
 
           drawSteppedPlatform(
-            cx - compW * (0.35 + forwardSlide * 0.15),
-            cy + h * (0.085 + forwardSlide * 0.08),
+            cx - compW * (0.35 + forwardSlide * 0.18),
+            cy + h * (0.085 + forwardSlide * 0.14),
             false
           );
           drawSteppedPlatform(
-            cx + compW * (0.35 + forwardSlide * 0.15),
-            cy + h * (0.095 + forwardSlide * 0.08),
+            cx + compW * (0.35 + forwardSlide * 0.18),
+            cy + h * (0.095 + forwardSlide * 0.14),
             true
           );
         }
@@ -1451,35 +1559,37 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
         ctx.restore();
       }
 
-      // 3. Radial 3D Perspective Tick Lines & Dust Motes (00:00 - 00:09)
-      const velocityStreakBoost = isInterpolating ? clamp(Math.abs(currentVelocity) * 0.2, 0, 1.5) : 0;
+      // 3. 72 Radial 3D Perspective Warp Streaks & Volumetric Star Motes (Directly Scrubbed by Scroll p)
+      const velocityStreakBoost = isInterpolating ? clamp(Math.abs(currentVelocity) * 0.32, 0, 2.2) : 0;
       ctx.save();
       for (let i = 0; i < radialTicks.length; i++) {
         const tk = radialTicks[i];
-        const z = ((tk.z - p * 1.48 - elapsed * 0.024) % 1 + 1) % 1;
-        const persp = 1 / Math.max(0.14, z);
-        const rDist = tk.dist * minDim * 0.35 * persp;
+        // Scroll progress p drives 3D warp flight forward on scroll-down and backward on scroll-up
+        const z = ((tk.z - p * 2.85 - elapsed * 0.015) % 1 + 1) % 1;
+        const persp = 1 / Math.max(0.13, z);
+        const rDist = tk.dist * minDim * 0.36 * persp;
         const sx = cx + Math.cos(tk.angle) * rDist * (compW / minDim);
         const sy = cy + Math.sin(tk.angle) * rDist;
 
         if (sx >= 0 && sx <= w && sy >= 0 && sy <= h) {
-          const alpha = smoothstep(0.05, 0.22, z) * (1 - smoothstep(0.76, 0.98, z)) * 0.65;
-          if (tk.isLine || velocityStreakBoost > 0.35) {
+          const alpha = smoothstep(0.05, 0.22, z) * (1 - smoothstep(0.76, 0.98, z)) * 0.78;
+          if (tk.isLine || velocityStreakBoost > 0.2) {
             const len =
               tk.len *
               renderScale *
-              clamp(persp * 0.45, 0.5, 2.4) *
+              clamp(persp * 0.48, 0.55, 2.8) *
               (1 + velocityStreakBoost);
-            ctx.strokeStyle = `rgba(235, 246, 255, ${alpha * 0.85})`;
-            ctx.lineWidth = 1.25 * renderScale;
+            const rgb = RADIAL_STAR_RGB[i % RADIAL_STAR_RGB.length];
+            ctx.strokeStyle = i % 3 === 0 ? `rgba(${rgb}, ${alpha * 0.92})` : `rgba(235, 246, 255, ${alpha * 0.88})`;
+            ctx.lineWidth = 1.35 * renderScale;
             ctx.beginPath();
             ctx.moveTo(sx, sy);
             ctx.lineTo(sx + Math.cos(tk.angle) * len, sy + Math.sin(tk.angle) * len);
             ctx.stroke();
           } else {
-            const sr = 2.9 * renderScale * clamp(persp * 0.42, 0.55, 2.4);
+            const sr = 3.2 * renderScale * clamp(persp * 0.45, 0.6, 2.6);
             const rgb = RADIAL_STAR_RGB[i % RADIAL_STAR_RGB.length];
-            ctx.fillStyle = `rgba(${rgb}, ${alpha * 0.95})`;
+            ctx.fillStyle = `rgba(${rgb}, ${alpha * 0.98})`;
             ctx.beginPath();
             ctx.moveTo(sx, sy - sr);
             ctx.quadraticCurveTo(sx, sy, sx + sr, sy);
@@ -1494,70 +1604,161 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
       ctx.restore();
 
       // =====================================================================
-      // 4. PURE SCENE-SYNCHRONIZED 3D CODE TEXT OVERLAYS (00:00 - 00:03.4)
-      //    Renders ONLY the reference video codes as clean text at their exact
-      //    scene positions with zero boxes, zero histograms, and zero shadows.
+      // 4. PREMIUM GLASSMORPHIC 3D HOLOGRAPHIC CODE HUD PLANES (ACT I & II: 00:00 - 00:03.1)
+      //    Soft eye-friendly contrast, syntax-tinted typography, peripheral framing,
+      //    and center safe-zone attenuation so foreground Hero/About UI is 100% clear.
       // =====================================================================
-      const codeGlobalAlpha = 1 - smoothstep(2.3, 3.45, sec);
+      const codeGlobalAlpha = 1 - smoothstep(2.05, 3.05, sec);
       if (codeGlobalAlpha > 0.01) {
         ctx.save();
         ctx.textAlign = 'left';
         ctx.textBaseline = 'top';
+        // Subtle foreground parallax + upward scroll travel synchronized with Hero/About DOM
+        ctx.translate(parallaxX * 0.35, parallaxY * 0.35 - sec * (h * 0.042));
+
+        const softPulse = 0.85 + 0.15 * Math.sin(elapsed * 2.4);
 
         samples.forEach((sample) => {
           const sampleSec = sample.progress * 9.0;
           const sampleWeight = sample.weight;
 
-          VIDEO_CODE_BLOCKS.forEach((cb) => {
-            const z = cb.z0 - sampleSec * 0.145;
-            if (z <= 0.12 || z >= 1.1) return;
+          VIDEO_CODE_BLOCKS.forEach((cb, cbIdx) => {
+            // Directly driven by scroll (sampleSec) so scrolling smoothly glides past each 3D HUD panel
+            const z = cb.z0 - sampleSec * 0.20;
+            if (z <= 0.18 || z >= 0.95) return;
 
-            const persp = 0.48 / z;
+            const persp = 0.46 / z;
+            const depthEnvelope =
+              smoothstep(0.18, 0.32, z) * (1 - smoothstep(0.74, 0.93, z));
+
+            const floatY = Math.sin(elapsed * 1.4 + cbIdx * 1.3) * (2.5 * renderScale);
+            const sx = cx + cb.x * compW * persp;
+            const sy = cy + cb.y * h * persp + floatY;
+
+            // Radial Center Safe-Zone Attenuation: dims code planes near the center reading zone
+            const normDistFromCenter = Math.hypot((sx - cx) / (w * 0.5), (sy - cy) / (h * 0.5));
+            const centerSafeAttenuation = smoothstep(0.28, 0.68, normDistFromCenter);
+
+            // Whisper-quiet luxury opacity cap (max ~0.42) so it never glares or hurts the eyes
             const alpha =
               codeGlobalAlpha *
               sampleWeight *
-              smoothstep(0.14, 0.24, z) *
-              (1 - smoothstep(0.82, 1.05, z));
+              depthEnvelope *
+              (0.32 + 0.68 * centerSafeAttenuation) *
+              0.44;
 
-            if (alpha <= 0.01) return;
-
-            const sx = cx + cb.x * compW * persp;
-            const sy = cy + cb.y * h * persp;
+            if (alpha <= 0.015) return;
 
             ctx.save();
             ctx.translate(sx, sy);
 
-            const fontPx = Math.round(11.4 * renderScale * clamp(persp * 0.9, 0.68, 1.75));
-            let yCur = 0;
+            const fontPx = Math.round(9.6 * renderScale * clamp(persp * 0.78, 0.68, 1.16));
+            const lineH = Math.round(fontPx * 1.48);
+            const padX = Math.round(11 * renderScale);
+            const padY = Math.round(8 * renderScale);
+            const headerH = Math.round(fontPx * 1.85);
 
-            if (cb.headerGlyph) {
-              ctx.font = `700 ${Math.round(fontPx * 1.42)}px "JetBrains Mono", monospace`;
-              ctx.fillStyle = `rgba(242, 249, 255, ${alpha * 0.92})`;
-              ctx.fillText(cb.headerGlyph, 0, yCur);
-              yCur += fontPx * 1.65;
-            }
+            // Estimate card dimensions cleanly without expensive per-frame measureText calls
+            const maxChars = cb.lines.reduce((m, l) => Math.max(m, l.length), 24);
+            const cardW = Math.round((maxChars * 0.61 + 4.5) * fontPx + padX * 2);
+            const cardH = Math.round(headerH + cb.lines.length * lineH + padY * 1.8);
+            const cornerR = 6 * renderScale;
+
+            // 1. Frosted Obsidian-Sapphire Glass HUD Backing Plate
+            ctx.fillStyle = `rgba(6, 13, 26, ${alpha * 1.15})`;
+            ctx.strokeStyle = `rgba(${activeAct.accentRgb}, ${alpha * 0.42})`;
+            ctx.lineWidth = 1.0 * renderScale;
+            ctx.beginPath();
+            ctx.roundRect(0, 0, cardW, cardH, cornerR);
+            ctx.fill();
+            ctx.stroke();
+
+            // 2. Subtle Top Header Strip inside the Glass Card
+            ctx.fillStyle = `rgba(${activeAct.accentRgb}, ${alpha * 0.14})`;
+            ctx.beginPath();
+            ctx.roundRect(0, 0, cardW, headerH, [cornerR, cornerR, 0, 0]);
+            ctx.fill();
+
+            // Header divider hair-line
+            ctx.strokeStyle = `rgba(148, 163, 184, ${alpha * 0.24})`;
+            ctx.lineWidth = 0.75 * renderScale;
+            ctx.beginPath();
+            ctx.moveTo(0, headerH);
+            ctx.lineTo(cardW, headerH);
+            ctx.stroke();
+
+            // 3. Precision L-Shaped Corner Reticles (Top-Left & Bottom-Right)
+            const tickLen = 5.5 * renderScale;
+            ctx.strokeStyle = `rgba(125, 211, 252, ${alpha * 0.72})`;
+            ctx.lineWidth = 1.25 * renderScale;
+            ctx.beginPath();
+            ctx.moveTo(0, tickLen);
+            ctx.lineTo(0, 0);
+            ctx.lineTo(tickLen, 0);
+            ctx.moveTo(cardW - tickLen, cardH);
+            ctx.lineTo(cardW, cardH);
+            ctx.lineTo(cardW, cardH - tickLen);
+            ctx.stroke();
+
+            // 4. Micro Status LED Dot + Module Filename & Sub-Tag in Header
+            const dotR = 2.2 * renderScale;
+            const headerMidY = headerH * 0.5;
+            ctx.fillStyle = `rgba(56, 189, 248, ${alpha * 0.95 * softPulse})`;
+            ctx.beginPath();
+            ctx.arc(padX, headerMidY, dotR, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.font = `600 ${Math.round(fontPx * 0.88)}px "JetBrains Mono", monospace`;
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = `rgba(186, 230, 253, ${alpha * 0.92})`;
+            ctx.fillText(cb.headerGlyph || 'MODULE.ts', padX + dotR * 3.2, headerMidY);
 
             if (cb.subGlyph) {
-              ctx.font = `600 ${Math.round(fontPx * 1.18)}px "JetBrains Mono", monospace`;
-              ctx.fillStyle = `rgba(220, 238, 255, ${alpha * 0.86})`;
-              ctx.fillText(cb.subGlyph, 0, yCur);
-              yCur += fontPx * 1.45;
+              ctx.textAlign = 'right';
+              ctx.font = `500 ${Math.round(fontPx * 0.78)}px "JetBrains Mono", monospace`;
+              ctx.fillStyle = `rgba(148, 163, 184, ${alpha * 0.68})`;
+              ctx.fillText(cb.subGlyph, cardW - padX, headerMidY);
+              ctx.textAlign = 'left';
             }
 
-            if (cb.title) {
-              ctx.font = `600 ${fontPx}px "JetBrains Mono", monospace`;
-              ctx.fillStyle = `rgba(248, 252, 255, ${alpha * 0.94})`;
-              ctx.fillText(cb.title, 0, yCur);
-              yCur += fontPx * 1.38;
-            }
+            // 5. Soft Syntax-Tinted Code Lines with Muted Line Numbers
+            ctx.textBaseline = 'top';
+            let yCur = headerH + padY * 0.65;
+            const numColW = Math.round(fontPx * 2.1);
 
-            if (cb.lines.length > 0) {
+            for (let lIdx = 0; lIdx < cb.lines.length; lIdx++) {
+              const rawLine = cb.lines[lIdx];
+              const trimmed = rawLine.trimStart();
+
+              // Muted Slate Line Number (01, 02, 03...)
+              ctx.font = `400 ${Math.round(fontPx * 0.84)}px "JetBrains Mono", monospace`;
+              ctx.fillStyle = `rgba(100, 116, 139, ${alpha * 0.58})`;
+              ctx.fillText(`0${lIdx + 1}`, padX, yCur + fontPx * 0.08);
+
+              // Eye-soothing syntax coloring based on line role
               ctx.font = `500 ${fontPx}px "JetBrains Mono", monospace`;
-              ctx.fillStyle = `rgba(228, 242, 255, ${alpha * 0.88})`;
-              for (let lIdx = 0; lIdx < cb.lines.length; lIdx++) {
-                ctx.fillText(cb.lines[lIdx], 0, yCur);
-                yCur += fontPx * 1.32;
+              if (trimmed.startsWith('//')) {
+                // Soft muted teal-slate for comments
+                ctx.fillStyle = `rgba(125, 211, 252, ${alpha * 0.62})`;
+              } else if (
+                trimmed.startsWith('export ') ||
+                trimmed.startsWith('struct ') ||
+                trimmed.startsWith('def ') ||
+                trimmed.startsWith('void ') ||
+                trimmed.startsWith('let ')
+              ) {
+                // Soft ice-cyan for declarations/signatures
+                ctx.fillStyle = `rgba(165, 243, 252, ${alpha * 0.88})`;
+              } else if (trimmed.startsWith('return ')) {
+                // Soft lavender-silver for return statements
+                ctx.fillStyle = `rgba(216, 180, 254, ${alpha * 0.84})`;
+              } else {
+                // Soft cool silver-slate for body lines (never harsh pure white)
+                ctx.fillStyle = `rgba(203, 213, 225, ${alpha * 0.82})`;
               }
+
+              ctx.fillText(rawLine, padX + numColW, yCur);
+              yCur += lineH;
             }
 
             ctx.restore();
@@ -1566,35 +1767,34 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
         ctx.restore();
       }
 
-      // Scene 2 Floating Code Text ("[utf8_Char : int.To]" & Stream Code Snippets in 00:02.2 - 00:05.8)
-      const utfAlpha = smoothstep(2.2, 3.2, sec) * (1 - smoothstep(5.0, 5.85, sec));
-      if (utfAlpha > 0.02) {
+      // Scene 2 Subtle Peripheral Telemetry Badges (00:02.2 - 00:05.6) — Soft & Unobtrusive
+      const utfAlpha = smoothstep(2.2, 3.2, sec) * (1 - smoothstep(4.8, 5.65, sec)) * 0.34;
+      if (utfAlpha > 0.015) {
         ctx.save();
-        const scene2FontPx = Math.round(11.5 * renderScale);
+        const scene2FontPx = Math.round(9.8 * renderScale);
         ctx.font = `500 ${scene2FontPx}px "JetBrains Mono", monospace`;
         ctx.textAlign = 'left';
         ctx.textBaseline = 'middle';
 
-        // Exact "[utf8_Char : int.To]" at top-right stream region
-        ctx.fillStyle = `rgba(238, 247, 255, ${utfAlpha * 0.9})`;
-        ctx.fillText('[utf8_Char : int.To]', cx + compW * 0.175, cy - h * 0.275);
+        const drawSubtleTelemetryTag = (label: string, subLabel: string, tx: number, ty: number) => {
+          ctx.fillStyle = `rgba(125, 211, 252, ${utfAlpha * 0.85})`;
+          ctx.fillText(label, tx, ty);
+          ctx.fillStyle = `rgba(148, 163, 184, ${utfAlpha * 0.68})`;
+          ctx.fillText(subLabel, tx, ty + scene2FontPx * 1.45);
+        };
 
-        // Peripheral stream code text matching Scene 2 of the video
-        const streamTextAlpha = utfAlpha * (1 - smoothstep(4.2, 5.2, sec)) * 0.82;
-        if (streamTextAlpha > 0.02) {
-          ctx.fillStyle = `rgba(222, 238, 252, ${streamTextAlpha})`;
-          ctx.fillText('01001101 01100001 01110100', cx - compW * 0.39, cy - h * 0.25);
-          ctx.fillText('stream.pipe(quantumCore);', cx - compW * 0.39, cy - h * 0.25 + scene2FontPx * 1.35);
-
-          ctx.fillText('01101110 01100101 01110101', cx - compW * 0.41, cy + h * 0.04);
-          ctx.fillText('sync_threads(0x3F);', cx - compW * 0.41, cy + h * 0.04 + scene2FontPx * 1.35);
-
-          ctx.fillText('01111000 01000011 01001111', cx + compW * 0.24, cy - h * 0.03);
-          ctx.fillText('vec4(1.0, 0.96, 1.0, 1.0)', cx + compW * 0.24, cy - h * 0.03 + scene2FontPx * 1.35);
-
-          ctx.fillText('01010011 01011001 01001110', cx - compW * 0.34, cy + h * 0.27);
-          ctx.fillText('01000001 01001001 00110001', cx + compW * 0.23, cy + h * 0.26);
-        }
+        drawSubtleTelemetryTag(
+          'SYS.STREAM // 0x7F_SYNC',
+          'stream.pipe(quantumCore);',
+          cx - compW * 0.42,
+          cy - h * 0.26
+        );
+        drawSubtleTelemetryTag(
+          'UTF8_CHANNEL // LOCK_120HZ',
+          'vec4(1.0, 0.96, 1.0, 1.0)',
+          cx + compW * 0.28,
+          cy - h * 0.26
+        );
         ctx.restore();
       }
 
@@ -1636,11 +1836,12 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
       const chipHalf = chipSize * 0.5;
 
       // =====================================================================
-      // 5. ULTRA-REALISTIC 3D NEURAL CORTEX MESH & PHOTONIC PCB ARCHITECTURE (00:04.0 - 00:09)
+      // 5. ULTRA-REALISTIC 3D NEURAL CORTEX MESH & PHOTONIC PCB ARCHITECTURE (00:03.4 - 00:09)
       // =====================================================================
-      const circuitAlpha = smoothstep(3.9, 5.8, sec);
+      const circuitAlpha = smoothstep(3.4, 5.2, sec);
       if (circuitAlpha > 0.01) {
         ctx.save();
+        const traceGrow = smoothstep(3.4, 4.9, sec);
 
         // Fast zero-allocation 4-point stellar diffraction star with optical halo
         const drawRealisticStarFlare = (
@@ -1685,8 +1886,8 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
         const midRightNodes = positionedNodes.filter((n) => n.layer === 'midRight');
         const outerRightNodes = positionedNodes.filter((n) => n.layer === 'outerRight');
 
-        // 5A. Photorealistic Geodesic Neural Cortex & Curved Axonal Synapse Network on Left & Right (00:04.3 - 00:09.0)
-        const meshAlpha = smoothstep(4.2, 6.3, sec);
+        // 5A. Photorealistic Geodesic Neural Cortex & Curved Axonal Synapse Network on Left & Right (00:04.5 - 00:09.0)
+        const meshAlpha = smoothstep(4.5, 6.2, sec);
         if (meshAlpha > 0.01) {
           const drawRealisticNeuralWeb = (
             colA: typeof positionedNodes,
@@ -1724,7 +1925,7 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
 
                 const proximityWeight = 1 - (rankDist / 0.42) * 0.45;
                 const pulseWave =
-                  0.78 + 0.22 * Math.sin(elapsed * 2.4 + i * 1.1 + j * 0.85 + layerSeed);
+                  0.78 + 0.22 * Math.sin(sec * 3.6 + elapsed * 1.4 + i * 1.1 + j * 0.85 + layerSeed);
                 const lineA = meshAlpha * baseOpacity * proximityWeight * pulseWave;
 
                 const dx = b.sx - a.sx;
@@ -1750,7 +1951,8 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
                 ctx.stroke();
 
                 if ((i + j) % 2 === 0) {
-                  const synT = (sec * 0.42 + elapsed * 0.32 + (i * 0.23 + j * 0.17 + layerSeed * 0.3)) % 1;
+                  // Scrubbed primarily by scroll timeline (sec) so scrolling propels synaptic pulses
+                  const synT = ((sec * 0.82 + elapsed * 0.06 + (i * 0.23 + j * 0.17 + layerSeed * 0.3)) % 1 + 1) % 1;
                   const headPt = getBezierPoint(synT, a.sx, a.sy, c1x, c1y, c2x, c2y, b.sx, b.sy);
                   drawRealisticStarFlare(
                     headPt.x,
@@ -1782,6 +1984,12 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
           traceOpacity: number,
           pulsePhase: number
         ) => {
+          const approxLen = Math.hypot(x3 - x0, y3 - y0) * 1.35;
+          ctx.save();
+          if (traceGrow < 0.995) {
+            ctx.setLineDash([approxLen * traceGrow, approxLen]);
+          }
+
           // 1. Mid-layer ice-blue optical conduit
           ctx.strokeStyle = `rgba(56, 189, 248, ${traceOpacity * 0.38})`;
           ctx.lineWidth = 3.2 * renderScale;
@@ -1797,11 +2005,12 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
           ctx.moveTo(x0, y0);
           ctx.bezierCurveTo(c1x, c1y, c2x, c2y, x3, y3);
           ctx.stroke();
+          ctx.restore();
 
-          // 3. Traveling Star Data Packet
-          const packetT = (sec * 0.45 + elapsed * 0.34 + pulsePhase) % 1;
+          // 3. Scroll-Driven Traveling Star Data Packet along the grown trace
+          const packetT = clamp(((sec * 0.88 + elapsed * 0.06 + pulsePhase) % 1 + 1) % 1, 0, traceGrow);
           const pt = getBezierPoint(packetT, x0, y0, c1x, c1y, c2x, c2y, x3, y3);
-          drawRealisticStarFlare(pt.x, pt.y, 4.2 * renderScale, traceOpacity, '56, 189, 248');
+          drawRealisticStarFlare(pt.x, pt.y, 4.2 * renderScale, traceOpacity * traceGrow, '56, 189, 248');
         };
 
         // 5B. Paired S-Curved Pin Traces from the Central Quantum Processor to the Hub Nodes
@@ -1978,33 +2187,33 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
       }
 
       // =====================================================================
-      // 6. ULTRA-REALISTIC 3D QUANTUM AI PROCESSOR ARCHITECTURE (00:02.5 - 00:09.0)
+      // 6. ULTRA-REALISTIC 3D QUANTUM AI PROCESSOR ARCHITECTURE & 3D GIMBAL CORE
       //    48-Pin Dual-Tier LGA Package, 16-Core Tensor Silicon Wafer Array,
-      //    SMD Micro-Capacitor Ring & Gyroscopic Photonic Singularity Core
-      //    (100% Crystal-Clear & Luminous — Zero Dark/Black Center Shadow)
+      //    3D Tilted Gyroscopic Orbital Rings & Crackling Plasma Singularity Core
       // =====================================================================
-      const chipAlpha = smoothstep(2.5, 3.7, sec);
+      const chipAlpha = smoothstep(1.7, 2.95, sec);
+      const fullPackageMorph = smoothstep(2.05, 3.3, sec);
       if (chipAlpha > 0.01) {
         ctx.save();
-        ctx.translate(cx, cy);
+        ctx.translate(cx + parallaxX * 0.22, cy + parallaxY * 0.22);
 
-        const coreBloomProgress = smoothstep(7.0, 8.9, sec);
-        const pulseGlow = 0.05 * Math.sin(elapsed * 3.2);
+        const coreBloomProgress = smoothstep(6.8, 8.9, sec);
+        const pulseGlow = 0.045 * Math.sin(elapsed * 3.6);
 
-        // 6A. Multi-Stage Volumetric Photonic Reactor Halo
-        const bloomR = chipSize * (2.05 + coreBloomProgress * 0.75);
+        // 6A. Multi-Stage Volumetric Photonic Reactor Halo (Crisp high-contrast glow)
+        const bloomR = chipSize * (1.95 + coreBloomProgress * 0.75);
         const bloom = ctx.createRadialGradient(0, 0, chipSize * 0.03, 0, 0, bloomR);
         bloom.addColorStop(
           0,
-          `rgba(255, 255, 255, ${chipAlpha * (0.64 + coreBloomProgress * 0.32 + pulseGlow)})`
+          `rgba(255, 255, 255, ${fullPackageMorph * (0.42 + coreBloomProgress * 0.28 + pulseGlow)})`
         );
         bloom.addColorStop(
-          0.32,
-          `rgba(165, 232, 255, ${chipAlpha * (0.38 + coreBloomProgress * 0.22)})`
+          0.28,
+          `rgba(${activeAct.accentRgb}, ${chipAlpha * (0.28 + coreBloomProgress * 0.18)})`
         );
         bloom.addColorStop(
           0.65,
-          `rgba(139, 92, 246, ${chipAlpha * (0.16 + coreBloomProgress * 0.12)})`
+          `rgba(${activeAct.secondaryRgb}, ${chipAlpha * (0.12 + coreBloomProgress * 0.1)})`
         );
         bloom.addColorStop(1, 'rgba(0, 0, 0, 0)');
         ctx.fillStyle = bloom;
@@ -2012,7 +2221,55 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
         ctx.arc(0, 0, bloomR, 0, Math.PI * 2);
         ctx.fill();
 
+        // 6A-II. 3 Tilted 3D Perspective Gyroscopic Gimbal Rings Orbiting the Quantum Processor (Scrubbed by sec)
+        const gimbalConfigs = [
+          {
+            rx: chipSize * 1.38,
+            ry: chipSize * (0.46 + 0.14 * Math.sin(sec * 1.8 + elapsed * 0.35)),
+            tilt: sec * 1.35 + elapsed * 0.14,
+            rgb: activeAct.accentRgb,
+            alpha: 0.56,
+          },
+          {
+            rx: chipSize * 1.18,
+            ry: chipSize * (0.38 + 0.12 * Math.cos(sec * 2.1 + elapsed * 0.42)),
+            tilt: -sec * 1.55 - elapsed * 0.16 + 1.047,
+            rgb: activeAct.secondaryRgb,
+            alpha: 0.48,
+          },
+          {
+            rx: chipSize * 1.56,
+            ry: chipSize * (0.32 + 0.1 * Math.sin(sec * 1.4 + elapsed * 0.28 + 2.1)),
+            tilt: sec * 1.05 + elapsed * 0.1 + 2.094,
+            rgb: '240, 249, 255',
+            alpha: 0.36,
+          },
+        ];
+
+        gimbalConfigs.forEach((g, gIdx) => {
+          ctx.strokeStyle = `rgba(${g.rgb}, ${chipAlpha * g.alpha})`;
+          ctx.lineWidth = (1.5 - gIdx * 0.2) * renderScale;
+          ctx.beginPath();
+          ctx.ellipse(0, 0, g.rx, g.ry, g.tilt, 0, Math.PI * 2);
+          ctx.stroke();
+
+          // Orbiting photonic satellite node along the 3D tilted gimbal ellipse (Locked to scroll sec)
+          const satAngle = (sec * (2.6 + gIdx * 0.65) + elapsed * 0.28) * (gIdx % 2 === 0 ? 1 : -1);
+          const localX = Math.cos(satAngle) * g.rx;
+          const localY = Math.sin(satAngle) * g.ry;
+          const cosT = Math.cos(g.tilt);
+          const sinT = Math.sin(g.tilt);
+          const sx = localX * cosT - localY * sinT;
+          const sy = localX * sinT + localY * cosT;
+
+          ctx.fillStyle = `rgba(255, 255, 255, ${chipAlpha * 0.95})`;
+          ctx.beginPath();
+          ctx.arc(sx, sy, 2.8 * renderScale, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
         // 6B. 48 Dual-Tier Precision Metallic LGA/QFP Contact Pins (12 per side) with Glowing Tips
+        const pinAlpha = chipAlpha * (0.35 + 0.65 * fullPackageMorph);
         const pinCountPerSide = 12;
         const pinLen = chipSize * 0.165;
         const pinThick = Math.max(1.8, chipSize * 0.028);
@@ -2021,7 +2278,7 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
           const pinWave = 0.75 + 0.25 * Math.sin(elapsed * 4.2 + i * 0.65 + sec * 2.0);
 
           // Metallic pin body
-          ctx.fillStyle = `rgba(232, 246, 255, ${chipAlpha * 0.94})`;
+          ctx.fillStyle = `rgba(232, 246, 255, ${pinAlpha * 0.94})`;
           // Left & Right pins
           ctx.fillRect(-chipHalf - pinLen, offset - pinThick * 0.5, pinLen, pinThick);
           ctx.fillRect(chipHalf, offset - pinThick * 0.5, pinLen, pinThick);
@@ -2031,7 +2288,7 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
 
           // Glowing photonic contact pads at pin tips
           const tipR = pinThick * 0.78;
-          ctx.fillStyle = `rgba(125, 211, 252, ${chipAlpha * pinWave * 0.95})`;
+          ctx.fillStyle = `rgba(${activeAct.accentRgb}, ${pinAlpha * pinWave * 0.95})`;
           ctx.beginPath();
           ctx.arc(-chipHalf - pinLen, offset, tipR, 0, Math.PI * 2);
           ctx.arc(chipHalf + pinLen, offset, tipR, 0, Math.PI * 2);
@@ -2042,9 +2299,9 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
 
         // 6C. Outer 3D Chamfered Titanium-Sapphire Package Substrate (Luminous & Translucent)
         const pkgGlow = ctx.createLinearGradient(-chipHalf, -chipHalf, chipHalf, chipHalf);
-        pkgGlow.addColorStop(0, `rgba(125, 211, 252, ${chipAlpha * 0.24})`);
-        pkgGlow.addColorStop(0.5, `rgba(240, 249, 255, ${chipAlpha * 0.14})`);
-        pkgGlow.addColorStop(1, `rgba(167, 139, 250, ${chipAlpha * 0.24})`);
+        pkgGlow.addColorStop(0, `rgba(${activeAct.accentRgb}, ${chipAlpha * 0.26})`);
+        pkgGlow.addColorStop(0.5, `rgba(240, 249, 255, ${chipAlpha * 0.15})`);
+        pkgGlow.addColorStop(1, `rgba(${activeAct.secondaryRgb}, ${chipAlpha * 0.26})`);
         ctx.fillStyle = pkgGlow;
         ctx.strokeStyle = `rgba(245, 252, 255, ${chipAlpha * 0.98})`;
         ctx.lineWidth = 2.5 * renderScale;
@@ -2085,7 +2342,7 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
           ctx.beginPath();
           ctx.arc(fx, fy, fidR, 0, Math.PI * 2);
           ctx.stroke();
-          ctx.fillStyle = `rgba(56, 189, 248, ${chipAlpha * 0.95})`;
+          ctx.fillStyle = `rgba(${activeAct.accentRgb}, ${chipAlpha * 0.95})`;
           ctx.beginPath();
           ctx.arc(fx, fy, fidR * 0.42, 0, Math.PI * 2);
           ctx.fill();
@@ -2131,15 +2388,15 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
             const ty = startXY + row * cellStep;
             const corePulse =
               0.55 +
-              0.45 * Math.sin(elapsed * 3.6 + row * 1.3 + col * 1.7 + sec * 2.4);
+              0.45 * Math.sin(elapsed * 4.2 + row * 1.3 + col * 1.7 + sec * 2.4);
             const isInnerCore = (row === 1 || row === 2) && (col === 1 || col === 2);
 
             const tileColor =
               (row + col) % 2 === 0
-                ? `rgba(125, 211, 252, ${chipAlpha * (0.28 + corePulse * 0.38)})`
-                : `rgba(196, 181, 253, ${chipAlpha * (0.24 + corePulse * 0.34)})`;
+                ? `rgba(${activeAct.accentRgb}, ${chipAlpha * (0.28 + corePulse * 0.42)})`
+                : `rgba(${activeAct.secondaryRgb}, ${chipAlpha * (0.24 + corePulse * 0.38)})`;
             ctx.fillStyle = tileColor;
-            ctx.strokeStyle = `rgba(240, 249, 255, ${chipAlpha * (isInnerCore ? 0.85 : 0.65)})`;
+            ctx.strokeStyle = `rgba(240, 249, 255, ${chipAlpha * (isInnerCore ? 0.88 : 0.68)})`;
             ctx.lineWidth = 0.95 * renderScale;
             ctx.beginPath();
             ctx.roundRect(tx, ty, tileW, tileW, 2 * renderScale);
@@ -2147,7 +2404,7 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
             ctx.stroke();
 
             // Internal micro-register lines inside each tensor core tile
-            ctx.strokeStyle = `rgba(255, 255, 255, ${chipAlpha * corePulse * 0.58})`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${chipAlpha * corePulse * 0.62})`;
             ctx.lineWidth = 0.7 * renderScale;
             ctx.beginPath();
             ctx.moveTo(tx + tileW * 0.2, ty + tileW * 0.35);
@@ -2159,7 +2416,7 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
         }
 
         // High-Bandwidth Interconnect (HBI) Crossbar Axes across the 16 Tensor Cores
-        ctx.strokeStyle = `rgba(255, 255, 255, ${chipAlpha * 0.75})`;
+        ctx.strokeStyle = `rgba(255, 255, 255, ${chipAlpha * 0.78})`;
         ctx.lineWidth = 1.2 * renderScale;
         ctx.beginPath();
         ctx.moveTo(-midHalf, 0);
@@ -2168,19 +2425,19 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
         ctx.lineTo(0, midHalf);
         ctx.stroke();
 
-        // 6F. Central Quantum Photonic Singularity Core & Counter-Rotating Gyroscopic Rings
+        // 6F. Central Quantum Photonic Singularity Core, Crackling Plasma Arcs & Gyroscopic Rings
         const coreSize = chipSize * 0.42;
         const coreHalf = coreSize * 0.5;
         const coreGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, coreHalf * 1.55);
         coreGrad.addColorStop(
           0,
-          `rgba(255, 255, 255, ${chipAlpha * (0.94 + coreBloomProgress * 0.06)})`
+          `rgba(255, 255, 255, ${chipAlpha * (0.96 + coreBloomProgress * 0.04)})`
         );
         coreGrad.addColorStop(
           0.48,
-          `rgba(224, 246, 255, ${chipAlpha * (0.82 + coreBloomProgress * 0.16)})`
+          `rgba(224, 246, 255, ${chipAlpha * (0.85 + coreBloomProgress * 0.15)})`
         );
-        coreGrad.addColorStop(1, `rgba(56, 189, 248, ${chipAlpha * 0.55})`);
+        coreGrad.addColorStop(1, `rgba(${activeAct.accentRgb}, ${chipAlpha * 0.58})`);
         ctx.fillStyle = coreGrad;
         ctx.strokeStyle = `rgba(255, 255, 255, ${chipAlpha * 0.99})`;
         ctx.lineWidth = 2.0 * renderScale;
@@ -2189,13 +2446,29 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
         ctx.fill();
         ctx.stroke();
 
+        // Crackling Plasma Energy Filaments inside the Quantum Core
+        ctx.strokeStyle = `rgba(255, 255, 255, ${chipAlpha * 0.82})`;
+        ctx.lineWidth = 1.15 * renderScale;
+        for (let arcIdx = 0; arcIdx < 6; arcIdx++) {
+          const ang = (arcIdx / 6) * Math.PI * 2 + elapsed * 3.1;
+          const jitter = Math.sin(elapsed * 14.0 + arcIdx * 2.3) * (coreHalf * 0.24);
+          const endX = Math.cos(ang) * (coreHalf * 0.88);
+          const endY = Math.sin(ang) * (coreHalf * 0.88);
+          const ctrlX = Math.cos(ang + 0.35) * (coreHalf * 0.45) + jitter;
+          const ctrlY = Math.sin(ang - 0.35) * (coreHalf * 0.45) - jitter;
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.quadraticCurveTo(ctrlX, ctrlY, endX, endY);
+          ctx.stroke();
+        }
+
         // Counter-rotating gyroscopic quantum containment rings inside the central core
         const gyroR1 = coreHalf * 0.78;
         const gyroR2 = coreHalf * 0.54;
-        const rot1 = elapsed * 1.4 + sec * 0.9;
-        const rot2 = -elapsed * 1.8 - sec * 1.1;
+        const rot1 = elapsed * 2.1 + sec * 0.9;
+        const rot2 = -elapsed * 2.6 - sec * 1.1;
 
-        ctx.strokeStyle = `rgba(255, 255, 255, ${chipAlpha * 0.92})`;
+        ctx.strokeStyle = `rgba(255, 255, 255, ${chipAlpha * 0.94})`;
         ctx.lineWidth = 1.35 * renderScale;
         for (let seg = 0; seg < 4; seg++) {
           const a0 = rot1 + (seg * Math.PI) / 2;
@@ -2204,7 +2477,7 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
           ctx.stroke();
         }
 
-        ctx.strokeStyle = `rgba(56, 189, 248, ${chipAlpha * 0.88})`;
+        ctx.strokeStyle = `rgba(${activeAct.accentRgb}, ${chipAlpha * 0.9})`;
         ctx.lineWidth = 1.2 * renderScale;
         for (let seg = 0; seg < 3; seg++) {
           const a0 = rot2 + (seg * Math.PI * 2) / 3;
@@ -2214,7 +2487,7 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
         }
 
         // Central 8-Point Diamond Singularity Star-Burst
-        const starCoreR = coreHalf * (0.48 + 0.08 * Math.sin(elapsed * 4.5));
+        const starCoreR = coreHalf * (0.52 + 0.1 * Math.sin(elapsed * 5.2));
         ctx.fillStyle = `rgba(255, 255, 255, ${chipAlpha})`;
         ctx.beginPath();
         ctx.moveTo(0, -starCoreR);
@@ -2229,10 +2502,10 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
       }
 
       // =====================================================================
-      // 7. 6 CONVERGING 3D GALACTIC STAR-STREAMS & PHOTONIC FILAMENTS (00:01.7 - 00:06.3)
+      // 7. 6 CONVERGING 3D GALACTIC STAR-STREAMS & PHOTONIC FILAMENTS (SCROLL-LOCKED ACT II-V)
       // =====================================================================
       const ribbonAlpha =
-        smoothstep(1.55, 2.45, sec) * (1 - smoothstep(5.0, 6.35, sec));
+        smoothstep(0.7, 1.55, sec) * (1 - smoothstep(5.4, 6.7, sec));
       if (ribbonAlpha > 0.01) {
         const ribbons = [
           { x0: cx - compW * 0.56, y0: h * 0.1, x1: cx - compW * 0.28, y1: cy - h * 0.18, x2: cx - compW * 0.14, y2: cy - h * 0.02, rgb: '56, 189, 248' },
@@ -2243,43 +2516,44 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
           { x0: cx + compW * 0.38, y0: h * 1.05, x1: cx + compW * 0.22, y1: cy + h * 0.26, x2: cx + compW * 0.08, y2: cy + h * 0.06, rgb: '56, 189, 248' },
         ];
 
-        const headReach = smoothstep(1.55, 3.45, sec);
-        const tailStart = smoothstep(4.3, 6.25, sec);
+        const headReach = smoothstep(0.65, 2.4, sec);
+        const tailStart = smoothstep(5.0, 6.7, sec);
 
         ctx.save();
         const primarySample = samples[samples.length - 1];
         const sSec = primarySample.progress * 9.0;
 
         // 7A. Luminous Photonic Guide Filaments connecting the side streams into the processor core
-        ribbons.forEach((rb) => {
+        ribbons.forEach((rb, rbIdx) => {
+          const waveShiftY = Math.sin(sec * 2.5 + elapsed * 0.8 + rbIdx * 1.1) * (12 * renderScale);
           const filGrad = ctx.createLinearGradient(rb.x0, rb.y0, cx, cy);
           filGrad.addColorStop(0, `rgba(${rb.rgb}, 0)`);
-          filGrad.addColorStop(0.35, `rgba(${rb.rgb}, ${ribbonAlpha * 0.22})`);
-          filGrad.addColorStop(0.85, `rgba(240, 249, 255, ${ribbonAlpha * 0.38})`);
-          filGrad.addColorStop(1, `rgba(255, 255, 255, ${ribbonAlpha * 0.55})`);
+          filGrad.addColorStop(0.35, `rgba(${rb.rgb}, ${ribbonAlpha * 0.26})`);
+          filGrad.addColorStop(0.85, `rgba(240, 249, 255, ${ribbonAlpha * 0.42})`);
+          filGrad.addColorStop(1, `rgba(255, 255, 255, ${ribbonAlpha * 0.62})`);
           ctx.strokeStyle = filGrad;
           ctx.lineWidth = 2.2 * renderScale;
           ctx.beginPath();
           ctx.moveTo(rb.x0, rb.y0);
-          ctx.bezierCurveTo(rb.x1, rb.y1, rb.x2, rb.y2, cx, cy);
+          ctx.bezierCurveTo(rb.x1, rb.y1 + waveShiftY, rb.x2, rb.y2 - waveShiftY * 0.5, cx, cy);
           ctx.stroke();
         });
 
-        // 7B. Crisp 4-Point Stellar Stream Particles with Comet Micro-Trails
-        ctx.fillStyle = `rgba(248, 252, 255, ${ribbonAlpha * 0.95})`;
+        // 7B. Crisp 4-Point Stellar Stream Particles with Comet Micro-Trails (Scrubbed by sSec)
+        ctx.fillStyle = `rgba(248, 252, 255, ${ribbonAlpha * 0.96})`;
         ctx.beginPath();
         for (let i = 0; i < streamDots.length; i++) {
           const sd = streamDots[i];
           if (sd.isBokeh) continue;
           const rb = ribbons[sd.ribbonIdx];
-          const u = (sd.u + sSec * 0.26 + elapsed * sd.speed * 0.16) % 1;
+          const u = ((sd.u + sSec * 0.52 + elapsed * sd.speed * 0.04) % 1 + 1) % 1;
           if (u > headReach || u < tailStart * 0.85) continue;
 
           const pt = getBezierPoint(u, rb.x0, rb.y0, rb.x1, rb.y1, rb.x2, rb.y2, cx, cy);
           const taper = 1 - u * 0.82;
           const px = pt.x + sd.spreadX * renderScale * taper;
           const py = pt.y + sd.spreadY * renderScale * taper;
-          const r = sd.radius * renderScale * (1 - u * 0.32) * 1.78;
+          const r = sd.radius * renderScale * (1 - u * 0.32) * 1.85;
           ctx.moveTo(px, py - r);
           ctx.quadraticCurveTo(px, py, px + r, py);
           ctx.quadraticCurveTo(px, py, px, py + r);
@@ -2293,19 +2567,19 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
           const sd = streamDots[i];
           if (!sd.isBokeh) continue;
           const rb = ribbons[sd.ribbonIdx];
-          const u = (sd.u + sSec * 0.26 + elapsed * sd.speed * 0.16) % 1;
+          const u = ((sd.u + sSec * 0.52 + elapsed * sd.speed * 0.04) % 1 + 1) % 1;
           if (u > headReach || u < tailStart * 0.85) continue;
 
           const pt = getBezierPoint(u, rb.x0, rb.y0, rb.x1, rb.y1, rb.x2, rb.y2, cx, cy);
           const taper = 1 - u * 0.82;
           const px = pt.x + sd.spreadX * renderScale * taper;
           const py = pt.y + sd.spreadY * renderScale * taper;
-          const r = sd.radius * renderScale * (1 - u * 0.3) * 1.45;
-          const starA = ribbonAlpha * sd.alpha * 1.35;
+          const r = sd.radius * renderScale * (1 - u * 0.3) * 1.52;
+          const starA = ribbonAlpha * sd.alpha * 1.4;
 
-          ctx.fillStyle = `rgba(${rb.rgb}, ${clamp(starA * 0.38, 0, 1)})`;
+          ctx.fillStyle = `rgba(${rb.rgb}, ${clamp(starA * 0.42, 0, 1)})`;
           ctx.beginPath();
-          ctx.arc(px, py, r * 1.65, 0, Math.PI * 2);
+          ctx.arc(px, py, r * 1.7, 0, Math.PI * 2);
           ctx.fill();
 
           ctx.fillStyle = `rgba(255, 255, 255, ${clamp(starA, 0, 1)})`;
@@ -2325,19 +2599,19 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
       ctx.save();
       ctx.translate(cx, cy);
       const orbitalColors = [
-        'rgba(6, 182, 212, 0.16)',
-        'rgba(217, 70, 239, 0.14)',
-        'rgba(139, 92, 246, 0.14)',
-        'rgba(16, 185, 129, 0.12)',
+        `rgba(${activeAct.accentRgb}, 0.22)`,
+        `rgba(${activeAct.secondaryRgb}, 0.18)`,
+        'rgba(139, 92, 246, 0.16)',
+        'rgba(16, 185, 129, 0.15)',
       ];
       for (let rIdx = 0; rIdx < 4; rIdx++) {
         const ringRad =
-          minDim * (0.22 + rIdx * 0.11 + Math.sin(elapsed * 0.9 + rIdx * 1.4) * 0.012);
-        const startAng = elapsed * (rIdx % 2 === 0 ? 0.38 : -0.32) + rIdx * 1.57 + p * Math.PI * 1.5;
+          minDim * (0.22 + rIdx * 0.11 + Math.sin(elapsed * 1.2 + rIdx * 1.4) * 0.014);
+        const startAng = elapsed * (rIdx % 2 === 0 ? 0.52 : -0.44) + rIdx * 1.57 + p * Math.PI * 1.5;
         ctx.strokeStyle = orbitalColors[rIdx];
-        ctx.lineWidth = 1.4 * renderScale;
+        ctx.lineWidth = 1.5 * renderScale;
         ctx.beginPath();
-        ctx.arc(0, 0, ringRad, startAng, startAng + Math.PI * 0.65);
+        ctx.arc(0, 0, ringRad, startAng, startAng + Math.PI * 0.68);
         ctx.stroke();
       }
       ctx.restore();
@@ -2361,11 +2635,11 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
       // =====================================================================
       ctx.save();
       const flareIntensity =
-        0.24 +
-        0.18 * Math.sin(sec * Math.PI * 1.1 + elapsed * 1.6) +
-        clamp(Math.abs(currentVelocity) * 0.08, 0, 0.25);
+        0.28 +
+        0.19 * Math.sin(sec * Math.PI * 1.1 + elapsed * 2.1) +
+        clamp(Math.abs(currentVelocity) * 0.08, 0, 0.28);
       const flareY = focusCenterY;
-      const flareW = w * (0.72 + p * 0.22);
+      const flareW = w * (0.76 + p * 0.22);
 
       // Horizontal Anamorphic Laser-Streak across the quantum core
       const anamorphicGrad = ctx.createLinearGradient(
@@ -2375,53 +2649,53 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
         flareY
       );
       anamorphicGrad.addColorStop(0, 'rgba(0, 0, 0, 0)');
-      anamorphicGrad.addColorStop(0.22, `rgba(${activeAct.secondaryRgb}, ${flareIntensity * 0.28})`);
-      anamorphicGrad.addColorStop(0.45, `rgba(${activeAct.accentRgb}, ${flareIntensity * 0.65})`);
-      anamorphicGrad.addColorStop(0.5, `rgba(255, 255, 255, ${flareIntensity * 0.92})`);
-      anamorphicGrad.addColorStop(0.55, `rgba(${activeAct.accentRgb}, ${flareIntensity * 0.65})`);
-      anamorphicGrad.addColorStop(0.78, `rgba(${activeAct.secondaryRgb}, ${flareIntensity * 0.28})`);
+      anamorphicGrad.addColorStop(0.22, `rgba(${activeAct.secondaryRgb}, ${flareIntensity * 0.32})`);
+      anamorphicGrad.addColorStop(0.45, `rgba(${activeAct.accentRgb}, ${flareIntensity * 0.72})`);
+      anamorphicGrad.addColorStop(0.5, `rgba(255, 255, 255, ${flareIntensity * 0.96})`);
+      anamorphicGrad.addColorStop(0.55, `rgba(${activeAct.accentRgb}, ${flareIntensity * 0.72})`);
+      anamorphicGrad.addColorStop(0.78, `rgba(${activeAct.secondaryRgb}, ${flareIntensity * 0.32})`);
       anamorphicGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
       ctx.fillStyle = anamorphicGrad;
       ctx.fillRect(
         focusCenterX - flareW * 0.5,
-        flareY - 2.4 * renderScale,
+        flareY - 2.6 * renderScale,
         flareW,
-        4.8 * renderScale
+        5.2 * renderScale
       );
 
       // Soft vertical & horizontal cinema bloom core
-      const softStreakH = 26 * renderScale;
+      const softStreakH = 28 * renderScale;
       const softStreakGrad = ctx.createRadialGradient(
         focusCenterX,
         flareY,
         0,
         focusCenterX,
         flareY,
-        flareW * 0.32
+        flareW * 0.34
       );
-      softStreakGrad.addColorStop(0, `rgba(255, 255, 255, ${flareIntensity * 0.34})`);
-      softStreakGrad.addColorStop(0.35, `rgba(${activeAct.accentRgb}, ${flareIntensity * 0.18})`);
+      softStreakGrad.addColorStop(0, `rgba(255, 255, 255, ${flareIntensity * 0.38})`);
+      softStreakGrad.addColorStop(0.35, `rgba(${activeAct.accentRgb}, ${flareIntensity * 0.22})`);
       softStreakGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
       ctx.fillStyle = softStreakGrad;
       ctx.fillRect(
-        focusCenterX - flareW * 0.32,
+        focusCenterX - flareW * 0.34,
         flareY - softStreakH,
-        flareW * 0.64,
+        flareW * 0.68,
         softStreakH * 2
       );
 
-      // Cinema Optical Iris Ghosting Rings (Diagonal lens reflections)
-      const ghostOffsets = [-0.28, -0.14, 0.16, 0.31];
+      // Cinema Optical Iris Ghosting Rings (Counter-Axis Lens Reflections that react to cursor & camera pan)
+      const ghostOffsets = [-0.32, -0.16, 0.15, 0.29, 0.42];
       ghostOffsets.forEach((off, gIdx) => {
-        const gx = cx + (cx - focusCenterX) * (1.8 + gIdx * 0.6) + off * w * 0.42;
-        const gy = cy + (cy - focusCenterY) * (1.8 + gIdx * 0.6) + off * h * 0.18;
-        const gr = (16 + gIdx * 11) * renderScale;
+        const gx = cx + (cx - focusCenterX) * (2.1 + gIdx * 0.55) + off * w * 0.38;
+        const gy = cy + (cy - focusCenterY) * (2.1 + gIdx * 0.55) + off * h * 0.16;
+        const gr = (14 + gIdx * 10) * renderScale;
         ctx.strokeStyle =
           gIdx % 2 === 0
-            ? `rgba(${activeAct.accentRgb}, ${flareIntensity * 0.22})`
-            : `rgba(${activeAct.secondaryRgb}, ${flareIntensity * 0.18})`;
-        ctx.lineWidth = 1.3 * renderScale;
+            ? `rgba(${activeAct.accentRgb}, ${flareIntensity * 0.25})`
+            : `rgba(${activeAct.secondaryRgb}, ${flareIntensity * 0.2})`;
+        ctx.lineWidth = 1.35 * renderScale;
         ctx.beginPath();
         ctx.arc(gx, gy, gr, 0, Math.PI * 2);
         ctx.stroke();
@@ -2447,9 +2721,9 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
       ctx.save();
       const starX = w * 0.915;
       const starY = h * 0.835;
-      const starR = 14.5 * renderScale;
+      const starR = 14.5 * renderScale * (0.92 + 0.12 * Math.sin(elapsed * 3.2));
       ctx.translate(starX, starY);
-      ctx.fillStyle = 'rgba(235, 244, 252, 0.92)';
+      ctx.fillStyle = 'rgba(235, 244, 252, 0.94)';
       ctx.beginPath();
       ctx.moveTo(0, -starR);
       ctx.quadraticCurveTo(0, 0, starR, 0);
@@ -2463,7 +2737,7 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
       ctx.restore();
 
       const curFrame = Math.min(TOTAL_FRAMES, Math.max(1, Math.round(p * (TOTAL_FRAMES - 1)) + 1));
-      if (Math.abs(curFrame - lastReportedFrame) >= 12 || curFrame === 1 || curFrame === TOTAL_FRAMES) {
+      if (curFrame !== lastReportedFrame) {
         lastReportedFrame = curFrame;
         window.dispatchEvent(
           new CustomEvent('cyber-video-frame', {
@@ -2498,7 +2772,9 @@ export const CyberScrollVideoBackground: React.FC<CyberScrollVideoBackgroundProp
     return () => {
       if (rafId !== null) cancelAnimationFrame(rafId);
       window.removeEventListener('resize', updateMetrics);
+      window.removeEventListener('mousemove', handlePointerMove);
       resizeObserver.disconnect();
+      domMutationObserver.disconnect();
     };
   }, [onFrameStatusChange]);
 

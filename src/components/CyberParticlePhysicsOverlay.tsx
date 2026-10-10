@@ -37,8 +37,23 @@ interface CursorStarSpark {
   rotationSpeed: number;
 }
 
+interface ShootingComet {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  tailLen: number;
+  colorIndex: number;
+  colorHex: string;
+  colorRgb: string;
+  life: number;
+  maxLife: number;
+  radius: number;
+}
+
 const STAR_SPRITE_SIZE = 64;
 const STAR_SPRITE_HALF = STAR_SPRITE_SIZE / 2;
+const clamp = (val: number, min: number, max: number) => Math.max(min, Math.min(max, val));
 
 /**
  * Pre-renders a high-DPI glowing celestial star sprite for a given chromatic color
@@ -328,10 +343,41 @@ export const CyberParticlePhysicsOverlay: React.FC = React.memo(() => {
 
     let rafId: number;
     let lastFrameTime = 0;
+    let lastCometSpawn = performance.now();
+    const comets: ShootingComet[] = [];
     const interactionRadius = 210;
     const interactionRadiusSq = interactionRadius * interactionRadius;
     const connectDistance = 128;
     const connectDistanceSq = connectDistance * connectDistance;
+
+    const spawnShootingComet = () => {
+      if (comets.length >= 3) return;
+      const cIdx = colorCycleIdx % CHROMATIC_28_PALETTE.length;
+      const c = CHROMATIC_28_PALETTE[cIdx];
+      colorCycleIdx++;
+
+      const fromLeft = Math.random() > 0.45;
+      const startX = fromLeft ? Math.random() * width * 0.65 : width * 0.35 + Math.random() * width * 0.65;
+      const startY = Math.random() * height * 0.42;
+      const angle = fromLeft
+        ? 0.38 + Math.random() * 0.32
+        : Math.PI - (0.38 + Math.random() * 0.32);
+      const speed = 11.5 + Math.random() * 6.5;
+
+      comets.push({
+        x: startX,
+        y: startY,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        tailLen: 95 + Math.random() * 65,
+        colorIndex: cIdx,
+        colorHex: c.hex,
+        colorRgb: c.rgb,
+        life: 0,
+        maxLife: 44 + Math.random() * 24,
+        radius: 2.3 + Math.random() * 1.1,
+      });
+    };
 
     const animate = (now: number) => {
       rafId = requestAnimationFrame(animate);
@@ -341,15 +387,22 @@ export const CyberParticlePhysicsOverlay: React.FC = React.memo(() => {
       const shockwaveAge = now - mouse.shockwaveTime;
       const hasShockwave = shockwaveAge >= 0 && shockwaveAge < 650;
 
-      // Throttle to ~30fps when cursor is idle to keep scrolling 100% locked at display refresh rate
-      if (!isCursorRecent && !hasShockwave && sparks.length === 0 && now - lastFrameTime < 33) {
+      // Maintain smooth 60FPS real-time celestial motion
+      if (!isCursorRecent && !hasShockwave && sparks.length === 0 && comets.length === 0 && now - lastFrameTime < 15.5) {
         return;
       }
       lastFrameTime = now;
 
+      // Periodically spawn a cinematic shooting star comet every ~2.2 seconds
+      if (now - lastCometSpawn > 2200) {
+        lastCometSpawn = now + Math.random() * 900;
+        spawnShootingComet();
+      }
+
       ctx.clearRect(0, 0, width, height);
 
       const elapsed = now * 0.001;
+      const scrollVelocity = clamp(window.__lenisScrollState?.velocity || 0, -28, 28);
 
       // Decay cursor velocity smoothly
       mouse.vx *= 0.9;
@@ -413,7 +466,7 @@ export const CyberParticlePhysicsOverlay: React.FC = React.memo(() => {
         }
 
         p.x += p.vx;
-        p.y += p.vy;
+        p.y += p.vy - scrollVelocity * (0.045 * p.mass);
         p.rotation += p.rotationSpeed * (1 + cursorProximityBoost * 2.5);
 
         // Toroidal viewport wrap
@@ -533,6 +586,43 @@ export const CyberParticlePhysicsOverlay: React.FC = React.memo(() => {
       }
 
       ctx.globalAlpha = 1;
+
+      // 2B. Update & Render Autonomous Photonic Shooting Star Comets
+      for (let i = comets.length - 1; i >= 0; i--) {
+        const c = comets[i];
+        c.life += 1;
+        if (c.life >= c.maxLife) {
+          comets.splice(i, 1);
+          continue;
+        }
+        c.x += c.vx;
+        c.y += c.vy;
+
+        const lifeNorm = c.life / c.maxLife;
+        const fade = Math.sin(lifeNorm * Math.PI);
+        const speed = Math.sqrt(c.vx * c.vx + c.vy * c.vy) || 1;
+        const tailX = c.x - (c.vx / speed) * c.tailLen * fade;
+        const tailY = c.y - (c.vy / speed) * c.tailLen * fade;
+
+        // Luminous tapered comet tail
+        const tailGrad = ctx.createLinearGradient(tailX, tailY, c.x, c.y);
+        tailGrad.addColorStop(0, `rgba(${c.colorRgb}, 0)`);
+        tailGrad.addColorStop(0.65, `rgba(${c.colorRgb}, ${fade * 0.45})`);
+        tailGrad.addColorStop(1, `rgba(255, 255, 255, ${fade * 0.96})`);
+        ctx.strokeStyle = tailGrad;
+        ctx.lineWidth = 2.0;
+        ctx.beginPath();
+        ctx.moveTo(tailX, tailY);
+        ctx.lineTo(c.x, c.y);
+        ctx.stroke();
+
+        // Glowing starburst comet head
+        const sprite = getStarSprite(c.colorIndex);
+        const headSize = c.radius * 9.5 * (0.7 + 0.3 * fade);
+        ctx.globalAlpha = fade * 0.92;
+        ctx.drawImage(sprite, c.x - headSize * 0.5, c.y - headSize * 0.5, headSize, headSize);
+        ctx.globalAlpha = 1;
+      }
 
       // 3. Expanding Click Shockwave Ring
       if (hasShockwave) {
